@@ -1,0 +1,104 @@
+resume_no,cid,source,specialty,run1_total,run2_total,run3_total,mean_total,mean_technical,mean_potential,mean_communication,interview_yes_of_3,screen_round,selected
+001,C001,cnamuangtoun/resume-job-description-fit#sha3efa9d43fe,Backend,21,19,21,20.33,7.67,7.00,5.67,3,3,yes
+002,C002,cnamuangtoun/resume-job-description-fit#sha37d3e9221e,Backend,20,21,20,20.33,6.67,7.00,6.67,3,1,yes
+003,C003,cnamuangtoun/resume-job-description-fit#shaf987130586,Full-stack,21,21,20,20.67,7.00,7.00,6.67,3,1,yes
+004,C004,cnamuangtoun/resume-job-description-fit#sha538df76bf1,Full-stack,20,21,20,20.33,7.00,7.00,6.33,3,1,yes
+005,C005,cnamuangtoun/resume-job-description-fit#sha6e2e67dbeb,Infrastructure,22,20,21,21.00,7.67,7.00,6.33,3,1,yes
+006,C006,cnamuangtoun/resume-job-description-fit#sha0f57cecb3e,Backend,21,22,20,21.00,7.33,7.00,6.67,3,2,yes
+007,C007,cnamuangtoun/resume-job-description-fit#shabd90e9572b,Backend,21,21,20,20.67,7.67,7.00,6.00,3,2,yes
+008,C009,cnamuangtoun/resume-job-description-fit#shad3fafdce2a,Full-stack,20,20,20,20.00,7.00,7.00,6.00,3,2,yes
+009,C010,cnamuangtoun/resume-job-description-fit#shaf950f65411,Mobile,20,21,20,20.33,7.00,7.00,6.33,3,1,yes
+010,C011,cnamuangtoun/resume-job-description-fit#shaf5356fa1e0,Backend,21,21,21,21.00,8.00,7.00,6.00,3,2,yes
+011,C012,cnamuangtoun/resume-job-description-fit#sha2c5a00f254,Full-stack,20,21,21,20.67,7.00,7.00,6.67,3,1,yes
+012,C014,0xnbk/resume-ats-score-v1-en#shac30fbcd8ba,Backend,20,21,19,20.00,7.33,7.33,5.33,3,2,yes
+013,C015,Mehyaar/Annotated_NER_PDF_Resumes#cv (4290)_annotated.json,Infrastructure,23,20,20,21.00,7.33,7.33,6.33,3,3,yes
+014,C016,cnamuangtoun/resume-job-description-fit#sha4f24b45f1c,Frontend,20,20,17,19.00,5.67,6.67,6.67,3,2,yes
+015,C017,cnamuangtoun/resume-job-description-fit#sha45d1547d63,Full-stack,20,20,20,20.00,7.00,7.00,6.00,3,2,yes
+016,C018,cnamuangtoun/resume-job-description-fit#shaac02954c64,Full-stack,20,21,20,20.33,7.00,7.00,6.33,3,1,yes
+017,C022,cnamuangtoun/resume-job-description-fit#sha9fe24adf42,Frontend,21,21,21,21.00,7.00,7.00,7.00,3,2,yes
+018,C023,cnamuangtoun/resume-job-description-fit#sha485ac27aef,Mobile,18,20,20,19.33,6.67,7.00,5.67,3,1,yes
+019,C024,0xnbk/resume-ats-score-v1-en#shaf03efe2c2c,Full-stack,21,21,21,21.00,7.00,7.00,7.00,3,1,yes
+020,C025,Mehyaar/Annotated_NER_PDF_Resumes#cv (4469)_annotated.json,Backend,21,20,21,20.67,7.00,7.00,6.67,3,1,yes
+021,C026,datasetmaster/resumes#L3,Infrastructure,20,21,20,20.33,7.00,7.00,6.33,3,1,yes
+022,C027,cnamuangtoun/resume-job-description-fit#sha98535d063d,Backend,20,21,21,20.67,7.67,7.00,6.00,3,2,yes
+023,C031,datasetmaster/resumes#L43,Backend,21,20,21,20.67,7.00,6.67,7.00,3,1,yes
+024,C032,cnamuangtoun/resume-job-description-fit#sha88596239d0,Backend,20,19,18,19.00,6.33,6.67,6.00,3,1,yes
+025,C033,cnamuangtoun/resume-job-description-fit#sha14eee7c291,Full-stack,22,20,20,20.67,7.33,7.00,6.33,3,1,yes
+026,C034,cnamuangtoun/resume-job-description-fit#sha853757fa2a,Backend,19,19,21,19.67,6.33,7.00,6.33,3,2,yes
+027,C035,cnamuangtoun/resume-job-description-fit#shaabf2c9aa81,Backend,20,19,20,19.67,7.00,7.00,5.67,3,2,yes
+028,C036,0xnbk/resume-ats-score-v1-en#shad5dac21a61,Backend,21,21,20,20.67,7.00,7.00,6.67,3,1,yes
+029,C037,Mehyaar/Annotated_NER_PDF_Resumes#cv (4494)_annotated.json,Backend,23,19,19,20.33,7.33,7.33,5.67,3,2,yes
+030,C038,datasetmaster/resumes#L91,Backend,19,20,20,19.67,7.00,7.00,5.67,3,1,yes
+031,C039,cnamuangtoun/resume-job-description-fit#sha457b11389d,Full-stack,20,20,20,20.00,7.00,7.00,6.00,3,2,yes
+032,C040,cnamuangtoun/resume-job-description-fit#shab346e8e86f,Full-stack,20,20,19,19.67,6.67,7.00,6.00,3,2,yes
+033,C041,cnamuangtoun/resume-job-description-fit#shad7781c966c,Backend,20,20,20,20.00,6.00,7.00,7.00,3,1,yes
+034,C042,cnamuangtoun/resume-job-description-fit#sha377b7b9d3d,Full-stack,20,20,22,20.67,7.00,7.33,6.33,3,2,yes
+035,C043,cnamuangtoun/resume-job-description-fit#shafe6b0d5ca2,Backend,21,21,21,21.00,7.00,7.00,7.00,3,1,yes
+036,C044,cnamuangtoun/resume-job-description-fit#sha2be28c8dfb,Mobile,21,20,21,20.67,6.67,7.00,7.00,3,1,yes
+037,C045,cnamuangtoun/resume-job-description-fit#shafbfff10a22,Backend,21,20,21,20.67,7.67,7.00,6.00,3,3,yes
+038,C046,0xnbk/resume-ats-score-v1-en#sha382dfe5cfa,Data Engineering,20,20,21,20.33,7.00,7.00,6.33,3,1,yes
+039,C048,Mehyaar/Annotated_NER_PDF_Resumes#cv (2)_annotated.json,Full-stack,21,20,21,20.67,7.00,7.00,6.67,3,1,yes
+040,C049,Mehyaar/Annotated_NER_PDF_Resumes#cv (2212)_annotated.json,Full-stack,19,20,20,19.67,6.00,6.67,7.00,3,2,yes
+041,C050,Mehyaar/Annotated_NER_PDF_Resumes#cv (4366)_annotated.json,Frontend,21,19,20,20.00,6.33,6.67,7.00,3,2,yes
+042,C051,Mehyaar/Annotated_NER_PDF_Resumes#cv (4442)_annotated.json,Full-stack,20,19,19,19.33,5.67,6.67,7.00,3,2,yes
+043,C052,Mehyaar/Annotated_NER_PDF_Resumes#cv (4581)_annotated.json,Backend,21,19,19,19.67,6.67,6.67,6.33,3,3,yes
+044,C053,datasetmaster/resumes#L8,Full-stack,20,20,20,20.00,7.00,7.00,6.00,3,2,yes
+045,C055,cnamuangtoun/resume-job-description-fit#shaec3573fa3e,Full-stack,20,20,20,20.00,7.00,7.00,6.00,3,2,yes
+046,C056,cnamuangtoun/resume-job-description-fit#shaa833c015a6,Frontend,19,20,21,20.00,6.33,7.00,6.67,3,2,yes
+047,C057,cnamuangtoun/resume-job-description-fit#sha93b21ee5f0,Full-stack,19,20,20,19.67,6.00,6.67,7.00,3,1,yes
+048,C059,cnamuangtoun/resume-job-description-fit#sha96a42b2005,Infrastructure,21,21,21,21.00,7.00,7.00,7.00,3,1,yes
+049,C060,Mehyaar/Annotated_NER_PDF_Resumes#cv (1530)_annotated.json,Infrastructure,20,20,17,19.00,5.67,6.67,6.67,3,1,yes
+050,C061,Mehyaar/Annotated_NER_PDF_Resumes#cv (1538)_annotated.json,Backend,20,20,19,19.67,6.00,6.67,7.00,3,2,yes
+051,C062,Mehyaar/Annotated_NER_PDF_Resumes#cv (2249)_annotated.json,Full-stack,20,20,17,19.00,6.67,6.67,5.67,3,2,yes
+052,C066,opensporks/resumes#ID12763627,Full-stack,21,19,20,20.00,6.67,6.67,6.67,3,2,yes
+053,C067,cnamuangtoun/resume-job-description-fit#sha3db5fb7f04,Frontend,20,18,20,19.33,5.67,6.67,7.00,3,2,yes
+054,C068,cnamuangtoun/resume-job-description-fit#sha9eb7a3da18,Backend,20,21,21,20.67,6.67,7.00,7.00,3,1,yes
+055,C069,cnamuangtoun/resume-job-description-fit#sha4f906bf2b1,Infrastructure,18,19,20,19.00,6.33,6.67,6.00,3,1,yes
+056,C070,cnamuangtoun/resume-job-description-fit#sha23be2d3ce0,Full-stack,18,20,20,19.33,6.67,6.33,6.33,3,3,yes
+057,C071,cnamuangtoun/resume-job-description-fit#sha58b8a3758a,Data Engineering,19,20,20,19.67,6.67,7.00,6.00,3,3,yes
+058,C072,cnamuangtoun/resume-job-description-fit#shab4d0cc5752,Infrastructure,21,21,20,20.67,7.67,7.00,6.00,3,2,yes
+059,C073,0xnbk/resume-ats-score-v1-en#sha44a57f0ed0,Mobile,21,21,21,21.00,7.00,7.00,7.00,3,1,yes
+060,C075,Mehyaar/Annotated_NER_PDF_Resumes#cv (1748)_annotated.json,Full-stack,19,19,19,19.00,6.00,6.00,7.00,3,3,yes
+061,C076,Mehyaar/Annotated_NER_PDF_Resumes#cv (3372)_annotated.json,Full-stack,19,20,18,19.00,6.00,6.67,6.33,3,2,yes
+062,C077,Mehyaar/Annotated_NER_PDF_Resumes#cv (3907)_annotated.json,Mobile,21,18,20,19.67,6.67,6.67,6.33,3,2,yes
+063,C078,Mehyaar/Annotated_NER_PDF_Resumes#cv (3830)_annotated.json,Backend,19,19,19,19.00,6.00,6.00,7.00,3,1,yes
+064,C080,Mehyaar/Annotated_NER_PDF_Resumes#cv (4699)_annotated.json,Backend,19,21,20,20.00,6.33,6.67,7.00,3,1,yes
+065,C084,datasetmaster/resumes#L107,Full-stack,20,18,19,19.00,6.67,6.33,6.00,3,2,yes
+066,C085,cnamuangtoun/resume-job-description-fit#shab3f54456e4,Backend,20,19,18,19.00,6.00,6.33,6.67,3,2,yes
+067,C086,cnamuangtoun/resume-job-description-fit#sha713278bdd8,Backend,20,19,22,20.33,7.33,6.67,6.33,3,2,yes
+068,C087,cnamuangtoun/resume-job-description-fit#sha54c41c3af9,Backend,19,20,20,19.67,7.00,6.67,6.00,3,2,yes
+069,C089,cnamuangtoun/resume-job-description-fit#shacdbf6f75f8,Full-stack,20,19,20,19.67,6.00,6.67,7.00,3,2,yes
+070,C091,Mehyaar/Annotated_NER_PDF_Resumes#cv (3432)_annotated.json,Full-stack,20,19,19,19.33,6.00,6.67,6.67,3,2,yes
+071,C096,Mehyaar/Annotated_NER_PDF_Resumes#cv (5023)_annotated.json,Backend,21,21,21,21.00,7.00,7.00,7.00,3,1,yes
+072,C098,datasetmaster/resumes#L7,Full-stack,21,20,18,19.67,6.67,6.67,6.33,3,2,yes
+073,C099,datasetmaster/resumes#L44,Backend,21,20,21,20.67,7.00,7.00,6.67,3,1,yes
+074,C105,cnamuangtoun/resume-job-description-fit#shabd2361bade,Backend,20,20,20,20.00,6.00,7.00,7.00,3,1,yes
+075,C108,Mehyaar/Annotated_NER_PDF_Resumes#cv (1610)_annotated.json,Backend,20,20,20,20.00,7.00,7.00,6.00,3,2,yes
+076,C109,Mehyaar/Annotated_NER_PDF_Resumes#cv (259)_annotated.json,Full-stack,18,21,20,19.67,6.67,6.33,6.67,3,2,yes
+077,C111,Mehyaar/Annotated_NER_PDF_Resumes#cv (5003)_annotated.json,Backend,20,21,20,20.33,7.33,7.00,6.00,3,2,yes
+078,C112,Mehyaar/Annotated_NER_PDF_Resumes#cv (4902)_annotated.json,Backend,21,21,21,21.00,7.00,7.00,7.00,3,3,yes
+079,C116,Mehyaar/Annotated_NER_PDF_Resumes#cv (5012)_annotated.json,Backend,20,20,19,19.67,7.00,7.00,5.67,3,2,yes
+080,C118,Mehyaar/Annotated_NER_PDF_Resumes#cv (843)_annotated.json,Infrastructure,20,21,20,20.33,7.00,7.33,6.00,3,4,yes
+081,C119,Mehyaar/Annotated_NER_PDF_Resumes#cv (86)_annotated.json,Frontend,19,19,19,19.00,6.00,6.00,7.00,3,2,yes
+082,D001,Mehyaar/Annotated_NER_PDF_Resumes#cv (1109)_annotated.json,Full-stack,20,21,20,20.33,6.33,7.00,7.00,3,3,yes
+083,D002,Mehyaar/Annotated_NER_PDF_Resumes#cv (2151)_annotated.json,Full-stack,20,18,20,19.33,6.67,6.67,6.00,3,2,yes
+084,D004,Mehyaar/Annotated_NER_PDF_Resumes#cv (4517)_annotated.json,Backend,20,19,20,19.67,6.67,7.00,6.00,3,4,yes
+085,D006,datasetmaster/resumes#L5,Backend,21,21,21,21.00,7.00,7.00,7.00,3,1,yes
+086,D007,datasetmaster/resumes#L9,Full-stack,20,19,20,19.67,6.00,6.67,7.00,3,1,yes
+087,D009,datasetmaster/resumes#L12,Backend,20,21,20,20.33,6.67,6.67,7.00,3,2,yes
+088,D010,datasetmaster/resumes#L15,Backend,20,20,20,20.00,6.67,7.00,6.33,3,1,yes
+089,D011,datasetmaster/resumes#L18,Infrastructure,20,20,21,20.33,7.33,7.00,6.00,3,2,yes
+090,D012,datasetmaster/resumes#L19,Full-stack,19,19,20,19.33,6.00,6.33,7.00,3,2,yes
+091,D014,datasetmaster/resumes#L24,Backend,21,19,21,20.33,6.67,6.67,7.00,3,1,yes
+092,D016,datasetmaster/resumes#L28,Mobile,21,20,18,19.67,6.33,6.67,6.67,3,1,yes
+093,D026,datasetmaster/resumes#L74,Backend,20,20,20,20.00,7.00,7.00,6.00,3,1,yes
+094,E003,0xnbk/resume-ats-score-v1-en#ats_train-row982,Mobile,21,21,21,21.00,7.00,7.00,7.00,3,3,yes
+095,E011,0xnbk/resume-ats-score-v1-en#ats_train-row1642,Backend,19,20,19,19.33,6.00,6.33,7.00,3,1,yes
+096,E018,0xnbk/resume-ats-score-v1-en#ats_train-row2987,Full-stack,19,20,18,19.00,6.00,6.33,6.67,3,2,yes
+097,E019,0xnbk/resume-ats-score-v1-en#ats_train-row3578,Backend,20,22,21,21.00,7.67,7.00,6.33,3,2,yes
+098,E024,0xnbk/resume-ats-score-v1-en#ats_train-row4847,Backend,20,21,20,20.33,7.00,7.33,6.00,3,2,yes
+099,E026,Mehyaar/Annotated_NER_PDF_Resumes#cv (999)_annotated.json,Mobile,20,20,20,20.00,6.00,7.00,7.00,3,1,yes
+100,C058,cnamuangtoun/resume-job-description-fit#shae0b0289f21,Backend,21,20,20,20.33,7.00,7.00,6.33,3,4,yes
+,C008,cnamuangtoun/resume-job-description-fit#shac5b3601472,Backend,18,19,17,18.00,5.67,6.33,6.00,3,3,no
+,C079,Mehyaar/Annotated_NER_PDF_Resumes#cv (3738)_annotated.json,Full-stack,20,17,20,19.00,5.67,6.67,6.67,3,2,no
+,C103,datasetmaster/resumes#L181,Full-stack,20,20,17,19.00,6.67,6.67,5.67,3,1,no
