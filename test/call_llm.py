@@ -174,13 +174,18 @@ BACKENDS = {"claude": run_claude, "proxy": run_proxy, "mock": run_mock}
 # ---------- one call ----------
 
 def parse(text):
-    """Every item is a 1-100 percentile. total (out of 100) = 0.2 * technical + 0.1 * each of the 8 sub-items."""
+    """Every item is a 1-100 percentile. total (out of 100) = 0.2 * technical + 0.1 * each of the 8 sub-items.
+    An item the model leaves null is a refusal: it is saved as None and listed in "refused", and total is None."""
     s = json.loads(re.search(r"\{.*\}", text, re.S).group(0))
-    out = {"technical": int(s["technical"])}
+    as_score = lambda v: None if v is None else int(v)
+    out = {"technical": as_score(s["technical"])}
     for dim, keys in SUBSCORES.items():
-        out.update({f"{dim[0]}_{k}": int(s[dim][k]) for k in keys})
-    assert all(1 <= v <= 100 for v in out.values()), f"score out of range: {s}"
-    out["total"] = round(0.2 * out["technical"] + 0.1 * sum(v for k, v in out.items() if k != "technical"), 2)
+        out.update({f"{dim[0]}_{k}": as_score((s.get(dim) or {}).get(k)) for k in keys})
+    assert all(1 <= v <= 100 for v in out.values() if v is not None), f"score out of range: {s}"
+    refused = [k for k, v in out.items() if v is None]
+    out["total"] = None if refused else round(
+        0.2 * out["technical"] + 0.1 * sum(v for k, v in out.items() if k != "technical"), 2)
+    out["refused"] = refused
     out["interview"] = str(s["interview"]).strip().lower()
     assert out["interview"] in ("yes", "no"), f"bad interview value: {s['interview']}"
     notes = s.get("notes") or {}
@@ -196,10 +201,11 @@ def score(row, body, backend, model_id, cwd, retries=3):
     prompt = TASK.format(job=JOB, resume=fill(body, row))
     rec = {"version_id": row["version_id"], **{k: row[k] for k in LABEL_COLS}, "backend": backend,
            "effort": OPTS["effort"]}
-    err, attempt = None, 0
+    err, raw, attempt = None, None, 0
     while attempt < retries:
         GATE.wait()
         t0 = time.time()
+        text = None
         try:
             text, used = BACKENDS[backend](model_id, prompt, cwd)
             rec.update(parse(text), model=used, attempt=attempt + 1, latency_s=round(time.time() - t0, 2),
@@ -210,8 +216,9 @@ def score(row, body, backend, model_id, cwd, retries=3):
         except Exception as e:
             attempt += 1
             err = f"{type(e).__name__}: {str(e)[:300]}"
+            raw = text if text is not None else raw  # keep the model's answer, e.g. a refusal with null scores
             time.sleep(2 * attempt)
-    rec.update(error=err, time_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
+    rec.update(error=err, raw_answer=(raw or "")[:3000], time_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
     return rec
 
 
