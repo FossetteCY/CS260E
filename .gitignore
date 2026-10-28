@@ -3,3 +3,4 @@
 # fake scores from `call_llm.py --model mock`
 test/results/mock/
 __pycache__/
+test/logs/
