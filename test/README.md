@@ -1,6 +1,6 @@
 # 测试说明
 
-怎么生成测试版本、怎么调用模型打分、结果长什么样。指标含义和分析方法见 [METRICS.md](METRICS.md)。
+怎么生成测试版本、怎么调用模型打分、结果长什么样。
 
 ```
 test/
@@ -12,8 +12,7 @@ test/
 │   ├── job.txt        岗位描述：通用软件工程师
 │   └── task.txt       打分要求和输出格式
 ├── call_llm.py        调用模型打分 → results/<模型>/scores.jsonl
-├── results/           gptsol601 / opus-5-5 / sonnet-5-5 / haiku-5-5
-└── METRICS.md         指标与分析方法
+└── results/           gptsol601 / opus-5-5 / sonnet-5-5 / haiku-5-5
 ```
 
 ## 1. 生成测试版本：`make_labels.py`
@@ -73,7 +72,7 @@ python3 test/make_labels.py --show 042-nb-multi-35plus
 }
 ```
 
-先打分，再写每项一句评语和整体评价，评语不会反过来影响打分。各项的含义见 [METRICS.md](METRICS.md)。
+先打分，再写每项一句评语和整体评价，评语不会反过来影响打分。
 
 ## 3. 调用模型：`call_llm.py`
 
@@ -121,3 +120,7 @@ df = pd.read_json("test/results/opus-5-5/scores.jsonl", lines=True, dtype={"resu
 ```bash
 git pull && git add test/results/opus-5-5 && git commit -m "Add opus-5-5 results" && git push
 ```
+
+## 5. 分析
+
+分析方法见 [METRICS.md](METRICS.md)。
