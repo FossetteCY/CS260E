@@ -11,11 +11,11 @@ test/
 │   ├── system.txt     系统提示：公司视角的招聘官
 │   ├── job.txt        岗位描述：通用软件工程师
 │   └── task.txt       打分要求和输出格式
-├── call_llm.py        调用模型打分 → results/<模型>/scores.jsonl
+├── call_llm.py        调用模型打分 → results/test-full-v1/<模型>/scores.jsonl
 ├── codex_proxy.py     GPT 用：把 Codex app-server 包成本地接口，额度到 90% 自动等待
 ├── run_gpt.sh         一键跑 GPT（先启动 codex_proxy.py）
 ├── run_claude.sh      一键跑某个 Claude 模型
-└── results/           gpt-6.1-sol-high / opus-5-5-high / sonnet-5-5-high / haiku-5-5-high
+└── results/test-full-v1/   gpt-6.1-sol-high / opus-5-5-high / sonnet-5-5-high / haiku-5-5-high（本版 prompt 的结果）
 ```
 
 ## 1. 生成测试版本：`make_labels.py`
@@ -114,9 +114,9 @@ python3 test/make_labels.py --show 042-nb-multi-35plus
 - **查看进度**：加 `--status`；**只跑一部分**：加 `--limit 50`
 - **日志**：在 `test/logs/`（代理的用量记录在 `codex_proxy.jsonl`），不会被提交
 - **`claude -p` 会附带运行者的账号邮箱**（见 `resume/resume_competitiveness.pdf` 第 7 节）。它对 54 个版本都一样，不会造成版本间差异
-- **不花额度测试流程**：`--model mock` 会生成随机分数，结果在 `results/mock/`，不会被提交
+- **不花额度测试流程**：`--model mock` 会生成随机分数，结果在 `results/test-full-v1/mock/`，不会被提交
 
-## 4. 结果：`results/<模型>/scores.jsonl`
+## 4. 结果：`results/test-full-v1/<模型>/scores.jsonl`
 
 每行一个版本，主要的列：
 
@@ -151,13 +151,13 @@ python3 test/make_labels.py --show 042-nb-multi-35plus
 
 ```python
 import pandas as pd
-df = pd.read_json("test/results/opus-5-5-high/scores.jsonl", lines=True, dtype={"resume_no": str})
+df = pd.read_json("test/results/test-full-v1/opus-5-5-high/scores.jsonl", lines=True, dtype={"resume_no": str})
 ```
 
 跑完把自己那个模型的文件夹提交上去（每人只改自己的文件夹，不会冲突）：
 
 ```bash
-git pull && git add test/results/opus-5-5-high && git commit -m "Add opus-5-5-high results" && git push
+git pull && git add test/results/test-full-v1/opus-5-5-high && git commit -m "Add opus-5-5-high results" && git push
 ```
 
 ## 5. 分析
