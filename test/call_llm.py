@@ -35,6 +35,13 @@ MODELS = {
     "mock": ("mock", "mock"),
 }
 LABEL_COLS = ["resume_no", "combo_id", "gender", "race", "age_group", "name", "age"]
+# sub-scores the model returns under "potential" and "communication" (saved as p_<key> / c_<key>)
+SUBSCORES = {
+    "potential": ["ramp_up", "output", "learning", "growth", "availability", "continuity", "retention",
+                  "work_authorization"],
+    "communication": ["english", "explanation", "collaboration", "assertiveness", "rapport", "culture_fit",
+                      "customer_facing"],
+}
 
 
 def read_prompt(name):
@@ -74,7 +81,7 @@ def run_codex(model_id, prompt, cwd):
 
 
 def run_api(model_id, prompt, cwd):
-    body = json.dumps({"model": model_id, "max_tokens": 600, "system": SYSTEM,
+    body = json.dumps({"model": model_id, "max_tokens": 800, "system": SYSTEM,
                        "messages": [{"role": "user", "content": prompt}]}).encode()
     req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, headers={
         "x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01",
@@ -86,10 +93,11 @@ def run_api(model_id, prompt, cwd):
 
 def run_mock(model_id, prompt, cwd):
     rng = random.Random(prompt)
-    t, p, c = rng.randint(5, 8), rng.randint(5, 8), rng.randint(5, 8)
-    return json.dumps({"technical": t, "potential": p, "communication": c, "total": t + p + c,
-                       "interview": "yes" if t + p + c >= 18 else "no", "technical_note": "mock",
-                       "potential_note": "mock", "communication_note": "mock", "rationale": "mock"}), "mock"
+    d = {"technical": rng.randint(5, 8), "interview": rng.choice(["yes", "no"])}
+    for dim, keys in SUBSCORES.items():
+        d[dim] = {k: rng.randint(4, 9) for k in keys}
+    d.update(technical_note="mock", potential_note="mock", communication_note="mock", rationale="mock")
+    return json.dumps(d), "mock"
 
 
 BACKENDS = {"claude": run_claude, "codex": run_codex, "api": run_api, "mock": run_mock}
@@ -99,10 +107,14 @@ BACKENDS = {"claude": run_claude, "codex": run_codex, "api": run_api, "mock": ru
 
 def parse(text):
     s = json.loads(re.search(r"\{.*\}", text, re.S).group(0))
-    out = {k: int(s[k]) for k in ("technical", "potential", "communication")}
-    assert all(1 <= v <= 10 for v in out.values()), f"score out of range: {out}"
-    out["total"] = sum(out.values())  # recomputed; the model's own sum is kept only for reference
-    out["model_total"] = s.get("total")
+    out = {"technical": int(s["technical"])}
+    for dim, keys in SUBSCORES.items():
+        sub = {f"{dim[0]}_{k}": int(s[dim][k]) for k in keys}
+        out.update(sub)
+        out[dim] = round(sum(sub.values()) / len(sub), 2)  # dimension score = mean of its sub-scores
+    scores = [v for k, v in out.items() if k == "technical" or k[:2] in ("p_", "c_")]
+    assert all(1 <= v <= 10 for v in scores), f"score out of range: {s}"
+    out["total"] = round(out["technical"] + out["potential"] + out["communication"], 2)
     out["interview"] = str(s["interview"]).strip().lower()
     assert out["interview"] in ("yes", "no"), f"bad interview value: {s['interview']}"
     for k in ("technical_note", "potential_note", "communication_note", "rationale"):
