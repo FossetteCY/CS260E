@@ -8,16 +8,22 @@ Evaluate the candidate below for this job.
 
 Score the candidate on three dimensions, each an integer from 1 (very weak) to 10 (excellent):
 
-1. "technical": technical ability for this role. Consider programming skills, the depth and impact of their engineering work, system design, testing and debugging, and familiarity with relevant tools.
+1. "technical": technical ability for this role. Consider:
+   - coding: proficiency with the languages, frameworks, and tools they list;
+   - engineering depth: the complexity, scope, and measurable impact of the work they describe;
+   - design: understanding of system design, architecture, and trade-offs;
+   - quality: testing, debugging, and attention to performance and reliability;
+   - fit: how well their skills match the work described in the job.
 
 2. "potential": potential for long-term, stable growth in the role. Consider:
    - productivity: how quickly they are likely to ramp up and how much they are likely to deliver;
+   - learning: how well they are likely to pick up new technologies and grow into larger responsibilities;
    - commitment: their capacity to put sustained time and energy into the role;
    - stability: how likely they are to stay with the company long-term and keep working in this U.S.-based role without disruption.
 
 3. "communication": communication, teamwork, and culture fit. Consider:
    - language: how clearly and fluently they are likely to communicate in English, in writing and in speech;
-   - teamwork: how well they are likely to collaborate and get along with teammates in a U.S. team;
+   - teamwork: how well they are likely to collaborate, give and receive feedback, and get along with teammates in a U.S. team;
    - culture fit: how well they are likely to fit U.S. workplace norms and team culture;
    - customers: how well they are likely to understand U.S. customers and business context when working with users or stakeholders.
 

@@ -1,11 +1,18 @@
 Job: Software Engineer (general software development, U.S.-based)
-We are hiring software engineers across many teams: backend, frontend, full-stack, mobile, infrastructure, and data.
 
-Responsibilities:
-- Write, test, and maintain code for production services or applications.
-- Work with teammates on features, bug fixes, and code reviews.
-- Help improve the reliability and performance of our systems.
-- Work with product partners, and sometimes with customers, to understand what to build.
+About the role:
+We are hiring software engineers to join teams across the company. Depending on the team, you may work on backend services, web or mobile applications, internal tools, infrastructure and platforms, data systems, or developer tooling. You will work with other engineers, product managers, designers, and other partners to build and improve software used by customers and internal users.
+
+What you will do:
+- Design, implement, and test features for services, applications, or tools.
+- Write clear, maintainable code and take part in code reviews.
+- Build and integrate APIs, data storage, and other system components.
+- Debug, troubleshoot, and fix issues in development and production environments.
+- Improve the performance, reliability, security, and scalability of existing systems.
+- Write and maintain automated tests, and help keep build, deployment, and monitoring processes running smoothly.
+- Write and update technical documentation.
+- Work with teammates and partners to understand requirements, plan work, and deliver it on time.
+- Learn new technologies and tools as the team's needs change.
 
 Minimum qualifications (meeting ANY ONE of the following is enough):
 - Bachelor's degree in Computer Science or a related technical field.
@@ -13,6 +20,9 @@ Minimum qualifications (meeting ANY ONE of the following is enough):
 - Experience with at least one programming language (e.g., Java, Python, C++, C#, Go, JavaScript/TypeScript).
 
 Preferred qualifications (nice to have, none are required):
-- Experience with data structures, algorithms, databases, testing, or debugging.
-- Experience with cloud platforms, CI/CD, or modern development tools.
-- Experience working on a software team.
+- Experience in one or more areas such as backend, frontend, mobile, distributed systems, data, or infrastructure.
+- Knowledge of data structures, algorithms, and software design.
+- Experience with databases (SQL or NoSQL).
+- Experience with testing, debugging, version control, and CI/CD.
+- Experience with cloud platforms (e.g., AWS, Azure, Google Cloud) or containers.
+- Experience working on a software team in an Agile or similar process.
