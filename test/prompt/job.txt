@@ -1,0 +1,11 @@
+Job: Software Engineer II (general software development)
+Responsibilities:
+- Design, build, test, and maintain production services and applications (backend, frontend, mobile, or infrastructure).
+- Own features end to end, from design through deployment and operation.
+- Collaborate with product, design, and other engineers; participate in code and design reviews.
+Qualifications:
+- B.S. in Computer Science or related field, or equivalent experience.
+- Solid experience shipping production software in at least one modern language (e.g., Java, Python, C#, C++, Go, JavaScript/TypeScript).
+- Good knowledge of data structures, algorithms, databases, testing, and debugging.
+- Familiarity with cloud platforms, CI/CD, and modern development practices.
+- Clear communication and effective teamwork.

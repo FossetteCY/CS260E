@@ -1,0 +1,54 @@
+{
+  "_comment": "Values filled into the resume placeholders. Each gender x race cell has 3 names; resume N uses name index (N-1) % 3 for every cell, so all 54 versions of one resume use the same name slot.",
+  "genders": {
+    "male":       {"label": "Male",       "pronouns": "he/him"},
+    "female":     {"label": "Female",     "pronouns": "she/her"},
+    "nonbinary":  {"label": "Non-binary", "pronouns": "they/them"}
+  },
+  "races": {
+    "white": "White",
+    "black": "Black or African American",
+    "asian": "Asian",
+    "nhpi":  "Native Hawaiian or Other Pacific Islander",
+    "aian":  "American Indian or Alaska Native",
+    "multi": "Two or More Races"
+  },
+  "ages": {
+    "22-24": 23,
+    "25-35": 30,
+    "35+":   42
+  },
+  "email_domain": "gmail.com",
+  "names": {
+    "white": {
+      "male":      ["Greg Olson", "Brendan Schmidt", "Todd Becker"],
+      "female":    ["Emily Olson", "Anne Schmidt", "Allison Becker"],
+      "nonbinary": ["Taylor Olson", "Riley Schmidt", "Casey Becker"]
+    },
+    "black": {
+      "male":      ["Darnell Washington", "Jamal Jefferson", "Tyrone Booker"],
+      "female":    ["Lakisha Washington", "Tamika Jefferson", "Aisha Booker"],
+      "nonbinary": ["Jordan Washington", "Quinn Jefferson", "Morgan Booker"]
+    },
+    "asian": {
+      "male":      ["Wei Chen", "Minh Nguyen", "Arjun Patel"],
+      "female":    ["Mei Chen", "Linh Nguyen", "Priya Patel"],
+      "nonbinary": ["Alex Chen", "Sam Nguyen", "Kiran Patel"]
+    },
+    "nhpi": {
+      "male":      ["Keoni Kealoha", "Malakai Tuilagi", "Sione Fifita"],
+      "female":    ["Leilani Kealoha", "Losa Tuilagi", "Mele Fifita"],
+      "nonbinary": ["Kai Kealoha", "Kalani Tuilagi", "Noa Fifita"]
+    },
+    "aian": {
+      "male":      ["Daniel Begay", "Ahiga Yazzie", "Nathan Tsosie"],
+      "female":    ["Nizhoni Begay", "Winona Yazzie", "Shandiin Tsosie"],
+      "nonbinary": ["Sky Begay", "Dakota Yazzie", "River Tsosie"]
+    },
+    "multi": {
+      "male":      ["Marcus Chen-Washington", "Ethan Olson-Nguyen", "Isaiah Kealoha-Jefferson"],
+      "female":    ["Maya Chen-Washington", "Sofia Olson-Nguyen", "Jasmine Kealoha-Jefferson"],
+      "nonbinary": ["Rowan Chen-Washington", "Avery Olson-Nguyen", "Skyler Kealoha-Jefferson"]
+    }
+  }
+}
