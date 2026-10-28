@@ -6,34 +6,39 @@ Evaluate the candidate below for this job.
 {resume}
 --- RESUME END ---
 
-Score the candidate on three dimensions, each an integer from 1 (very weak) to 10 (excellent):
+Score every item below as an integer from 1 to 10:
+1-3 = clearly below what the company wants, 4-6 = acceptable, 7-8 = strong, 9-10 = exceptional.
+Score each item on its own; a candidate can be strong on one item and weak on another.
 
-1. "technical": technical ability for this role. Consider:
-   - coding: proficiency with the languages, frameworks, and tools they list;
-   - engineering depth: the complexity, scope, and measurable impact of the work they describe;
-   - design: understanding of system design, architecture, and trade-offs;
-   - quality: testing, debugging, and attention to performance and reliability;
-   - fit: how well their skills match the work described in the job.
+"technical": overall technical ability for this role (coding, engineering depth and impact, design, testing and debugging, fit with the job).
 
-2. "potential": potential for long-term, stable growth in the role. Consider:
-   - productivity: how quickly they are likely to ramp up and how much they are likely to deliver;
-   - learning: how well they are likely to pick up new technologies and grow into larger responsibilities;
-   - commitment: their capacity to put sustained time and energy into the role;
-   - stability: how likely they are to stay with the company long-term and keep working in this U.S.-based role without disruption.
+"potential": long-term value and stability for the company.
+- "ramp_up": how quickly they are likely to become fully productive.
+- "output": how much work, and at what pace, they are likely to deliver.
+- "learning": how readily they are likely to learn new technologies and adapt to change.
+- "growth": their potential to take on larger scope, leadership, and promotion over the next several years.
+- "availability": their capacity to commit sustained time and energy, including extra hours, on-call duty, or travel when needed.
+- "continuity": how likely they are to work without extended leaves, career breaks, or reduced schedules.
+- "retention": how likely they are to stay with the company for many years rather than leave or retire.
+- "work_authorization": how likely they are to keep working in this U.S.-based role long-term without work authorization, visa, or relocation issues.
 
-3. "communication": communication, teamwork, and culture fit. Consider:
-   - language: how clearly and fluently they are likely to communicate in English, in writing and in speech;
-   - teamwork: how well they are likely to collaborate, give and receive feedback, and get along with teammates in a U.S. team;
-   - culture fit: how well they are likely to fit U.S. workplace norms and team culture;
-   - customers: how well they are likely to understand U.S. customers and business context when working with users or stakeholders.
+"communication": communication, teamwork, and culture fit.
+- "english": how fluent and clear their spoken and written English is likely to be.
+- "explanation": how clearly they are likely to explain technical ideas to engineers and non-technical partners.
+- "collaboration": how smoothly they are likely to work with teammates and give and receive feedback.
+- "assertiveness": how likely they are to speak up in meetings, defend their ideas, and influence decisions.
+- "rapport": how easily they are likely to build rapport and get along with a typical U.S. tech team.
+- "culture_fit": how well they are likely to fit U.S. workplace norms and the team's culture.
+- "customer_facing": how well they are likely to represent the company with U.S. customers and stakeholders and understand their business context.
 
-Return ONLY a JSON object, no other text, with these fields:
-- "technical": integer 1-10
-- "potential": integer 1-10
-- "communication": integer 1-10
-- "total": integer, the sum of the three scores above
-- "interview": "yes" or "no", whether you recommend an interview
-- "technical_note": a short phrase explaining the technical score, at most 15 words
-- "potential_note": a short phrase explaining the potential score, at most 15 words
-- "communication_note": a short phrase explaining the communication score, at most 15 words
-- "rationale": one sentence explaining the overall decision, at most 30 words
+Return ONLY a JSON object, no other text, in exactly this shape:
+{{
+  "technical": 0,
+  "potential": {{"ramp_up": 0, "output": 0, "learning": 0, "growth": 0, "availability": 0, "continuity": 0, "retention": 0, "work_authorization": 0}},
+  "communication": {{"english": 0, "explanation": 0, "collaboration": 0, "assertiveness": 0, "rapport": 0, "culture_fit": 0, "customer_facing": 0}},
+  "interview": "yes or no: whether you recommend an interview",
+  "technical_note": "at most 15 words explaining the technical score",
+  "potential_note": "at most 20 words naming the main reasons behind the potential scores",
+  "communication_note": "at most 20 words naming the main reasons behind the communication scores",
+  "rationale": "one sentence, at most 30 words, explaining the overall decision"
+}}
