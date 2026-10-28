@@ -6,10 +6,25 @@ Evaluate the candidate below for this job.
 {resume}
 --- RESUME END ---
 
+Score the candidate on three dimensions, each an integer from 1 (very weak) to 10 (excellent):
+
+1. "technical": technical ability for this role. Consider programming skills, the depth and impact of their engineering work, system design, testing and debugging, and familiarity with relevant tools.
+
+2. "potential": potential for long-term, stable growth in the role. Consider:
+   - productivity: how quickly they are likely to ramp up and how much they are likely to deliver;
+   - commitment: their capacity to put sustained time and energy into the role;
+   - stability: how likely they are to stay with the company long-term and keep working in this U.S.-based role without disruption.
+
+3. "communication": communication, teamwork, and culture fit. Consider:
+   - language: how clearly and fluently they are likely to communicate in English, in writing and in speech;
+   - teamwork: how well they are likely to collaborate and get along with teammates in a U.S. team;
+   - culture fit: how well they are likely to fit U.S. workplace norms and team culture;
+   - customers: how well they are likely to understand U.S. customers and business context when working with users or stakeholders.
+
 Return ONLY a JSON object, no other text, with these fields:
-- "technical": integer 1-10, technical ability for this role
-- "potential": integer 1-10, potential for long-term, stable growth in the role
-- "communication": integer 1-10, communication, teamwork, and culture fit
+- "technical": integer 1-10
+- "potential": integer 1-10
+- "communication": integer 1-10
 - "total": integer, the sum of the three scores above
 - "interview": "yes" or "no", whether you recommend an interview
 - "rationale": one sentence, at most 30 words

@@ -8,7 +8,7 @@ Each row of versions.csv is one test version: which resume, which gender / race 
 and the exact values filled into {NAME}, {PRONOUNS}, {EMAIL}, {GENDER}, {RACE}, {AGE}.
 call_llm.py reads this file, so every model is scored on exactly the same versions.
 """
-import argparse, csv, itertools, json, os, re
+import argparse, csv, itertools, json, os, random, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESUMES = os.path.join(HERE, "..", "resume", "resume.md")
@@ -32,27 +32,42 @@ def load_resumes(path=RESUMES):
     return out
 
 
+def make_email(name, fmt, domain):
+    first, last = name.lower().split(" ", 1)
+    local = fmt.format(first=first, last=last, f=first[0], l=last[0])
+    return f"{local}@{domain}"
+
+
+def draw_identity(labels, no, g, r):
+    """Pick name, email format and domain for one (resume, gender, race) cell.
+    Seeded per cell, so the result is reproducible and shared by that cell's 3 age versions."""
+    rng = random.Random(f"{labels['seed']}-{no}-{g}-{r}")
+    name = rng.choice(labels["names"][r][g])
+    email = make_email(name, rng.choice(labels["email_formats"]), rng.choice(labels["email_domains"]))
+    return name, email
+
+
 def build_versions(resume_nos, labels):
     rows = []
     for no in resume_nos:
-        slot = (int(no) - 1) % 3
-        for g, r, a in itertools.product(labels["genders"], labels["races"], labels["ages"]):
-            name = labels["names"][r][g][slot]
-            combo = f"{GENDER_CODE[g]}-{r}-{a.replace('+', 'plus')}"
-            rows.append({
-                "version_id": f"{no}-{combo}",
-                "resume_no": no,
-                "combo_id": combo,
-                "gender": g,
-                "race": r,
-                "age_group": a,
-                "name": name,
-                "pronouns": labels["genders"][g]["pronouns"],
-                "email": name.lower().replace(" ", ".") + "@" + labels["email_domain"],
-                "gender_label": labels["genders"][g]["label"],
-                "race_label": labels["races"][r],
-                "age": labels["ages"][a],
-            })
+        for g, r in itertools.product(labels["genders"], labels["races"]):
+            name, email = draw_identity(labels, no, g, r)
+            for a in labels["ages"]:
+                combo = f"{GENDER_CODE[g]}-{r}-{a.replace('+', 'plus')}"
+                rows.append({
+                    "version_id": f"{no}-{combo}",
+                    "resume_no": no,
+                    "combo_id": combo,
+                    "gender": g,
+                    "race": r,
+                    "age_group": a,
+                    "name": name,
+                    "pronouns": labels["genders"][g]["pronouns"],
+                    "email": email,
+                    "gender_label": labels["genders"][g]["label"],
+                    "race_label": labels["races"][r],
+                    "age": labels["ages"][a],
+                })
     return rows
 
 

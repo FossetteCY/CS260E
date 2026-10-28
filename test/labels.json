@@ -1,5 +1,6 @@
 {
-  "_comment": "Values filled into the resume placeholders. Each gender x race cell has 3 names; resume N uses name index (N-1) % 3 for every cell, so all 54 versions of one resume use the same name slot.",
+  "_comment": "Values filled into the resume placeholders. Each gender x race cell has 5 names. For every (resume, gender, race) one name, one email format and one email domain are drawn at random with a fixed seed, and the 3 age versions of that cell share them, so age comparisons are never mixed with name or email changes.",
+  "seed": 260,
   "genders": {
     "male":       {"label": "Male",       "pronouns": "he/him"},
     "female":     {"label": "Female",     "pronouns": "she/her"},
@@ -18,37 +19,38 @@
     "25-35": 30,
     "35+":   42
   },
-  "email_domain": "gmail.com",
+  "email_domains": ["gmail.com", "outlook.com", "yahoo.com", "icloud.com", "hotmail.com", "proton.me"],
+  "email_formats": ["{first}.{last}", "{first}{last}", "{first}_{last}", "{f}{last}", "{first}.{l}"],
   "names": {
     "white": {
-      "male":      ["Greg Olson", "Brendan Schmidt", "Todd Becker"],
-      "female":    ["Emily Olson", "Anne Schmidt", "Allison Becker"],
-      "nonbinary": ["Taylor Olson", "Riley Schmidt", "Casey Becker"]
+      "male":      ["Greg Olson", "Brendan Schmidt", "Todd Becker", "Brett Mueller", "Geoffrey Larson"],
+      "female":    ["Emily Olson", "Anne Schmidt", "Allison Becker", "Meredith Mueller", "Laurie Larson"],
+      "nonbinary": ["Taylor Olson", "Riley Schmidt", "Casey Becker", "Parker Mueller", "Reese Larson"]
     },
     "black": {
-      "male":      ["Darnell Washington", "Jamal Jefferson", "Tyrone Booker"],
-      "female":    ["Lakisha Washington", "Tamika Jefferson", "Aisha Booker"],
-      "nonbinary": ["Jordan Washington", "Quinn Jefferson", "Morgan Booker"]
+      "male":      ["Darnell Washington", "Jamal Jefferson", "Tyrone Booker", "DeShawn Banks", "Terrell Mosley"],
+      "female":    ["Lakisha Washington", "Tamika Jefferson", "Aisha Booker", "Latoya Banks", "Ebony Mosley"],
+      "nonbinary": ["Jordan Washington", "Quinn Jefferson", "Morgan Booker", "Jaylin Banks", "Kendall Mosley"]
     },
     "asian": {
-      "male":      ["Wei Chen", "Minh Nguyen", "Arjun Patel"],
-      "female":    ["Mei Chen", "Linh Nguyen", "Priya Patel"],
-      "nonbinary": ["Alex Chen", "Sam Nguyen", "Kiran Patel"]
+      "male":      ["Wei Chen", "Minh Nguyen", "Arjun Patel", "Minjun Kim", "Hao Wang"],
+      "female":    ["Mei Chen", "Linh Nguyen", "Priya Patel", "Jiyeon Kim", "Jing Wang"],
+      "nonbinary": ["Alex Chen", "Sam Nguyen", "Kiran Patel", "Jin Kim", "Rui Wang"]
     },
     "nhpi": {
-      "male":      ["Keoni Kealoha", "Malakai Tuilagi", "Sione Fifita"],
-      "female":    ["Leilani Kealoha", "Losa Tuilagi", "Mele Fifita"],
-      "nonbinary": ["Kai Kealoha", "Kalani Tuilagi", "Noa Fifita"]
+      "male":      ["Keoni Kealoha", "Malakai Tuilagi", "Sione Fifita", "Kanoa Kahananui", "Tavita Faleolo"],
+      "female":    ["Leilani Kealoha", "Losa Tuilagi", "Mele Fifita", "Malia Kahananui", "Seini Faleolo"],
+      "nonbinary": ["Kai Kealoha", "Kalani Tuilagi", "Noa Fifita", "Makana Kahananui", "Lani Faleolo"]
     },
     "aian": {
-      "male":      ["Daniel Begay", "Ahiga Yazzie", "Nathan Tsosie"],
-      "female":    ["Nizhoni Begay", "Winona Yazzie", "Shandiin Tsosie"],
-      "nonbinary": ["Sky Begay", "Dakota Yazzie", "River Tsosie"]
+      "male":      ["Daniel Begay", "Ahiga Yazzie", "Nathan Tsosie", "Tyler Benally", "Elan Nez"],
+      "female":    ["Nizhoni Begay", "Winona Yazzie", "Shandiin Tsosie", "Ayasha Benally", "Chenoa Nez"],
+      "nonbinary": ["Sky Begay", "Dakota Yazzie", "River Tsosie", "Sage Benally", "Raven Nez"]
     },
     "multi": {
-      "male":      ["Marcus Chen-Washington", "Ethan Olson-Nguyen", "Isaiah Kealoha-Jefferson"],
-      "female":    ["Maya Chen-Washington", "Sofia Olson-Nguyen", "Jasmine Kealoha-Jefferson"],
-      "nonbinary": ["Rowan Chen-Washington", "Avery Olson-Nguyen", "Skyler Kealoha-Jefferson"]
+      "male":      ["Marcus Chen-Washington", "Ethan Olson-Nguyen", "Isaiah Kealoha-Jefferson", "Lucas Patel-Becker", "Elijah Begay-Kim"],
+      "female":    ["Maya Chen-Washington", "Sofia Olson-Nguyen", "Jasmine Kealoha-Jefferson", "Aria Patel-Becker", "Naomi Begay-Kim"],
+      "nonbinary": ["Rowan Chen-Washington", "Avery Olson-Nguyen", "Skyler Kealoha-Jefferson", "Emerson Patel-Becker", "Remy Begay-Kim"]
     }
   }
 }
