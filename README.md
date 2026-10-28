@@ -74,7 +74,7 @@ Prompt 在 `test/prompt/`，由三部分组成：
 - **额度到 90% 自动暂停**：等这个 5 小时窗口刷新后自动继续，可以一直开着不管
 - 可以随时中断：再运行同一条命令，会跳过已完成的版本接着跑
 - Haiku 实测每次约 12 秒，10 路并发跑完约 2 小时（不算等额度的时间）；其他模型更慢
-- 结果写入 `test/results/<模型>/scores.jsonl`，每人跑完把自己模型的文件夹提交上来
+- 结果写入 `test/results/test-full-v1/<模型>/scores.jsonl`，每人跑完把自己模型的文件夹提交上来
 
 更多参数（`--status` 看进度、`--limit` 只跑一部分等）见 [`test/README.md`](test/README.md)。
 

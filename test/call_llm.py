@@ -5,7 +5,7 @@ Usage:
     python3 test/call_llm.py --model haiku-5-5-high --status      # how many are done
     python3 test/call_llm.py --model mock --limit 200             # fake scores, for testing the pipeline
 
-Models (results go to test/results/<model>/scores.jsonl):
+Models (results go to test/results/<run>/<model>/scores.jsonl, run defaults to test-full-v1):
     haiku-5-5-high, sonnet-5-5-high, opus-5-5-high   via `claude -p --effort high` (Claude subscription)
     gpt-6.1-sol-high                                 via test/codex_proxy.py (Codex app-server, ChatGPT subscription)
     mock                                             random scores, no calls
@@ -243,12 +243,13 @@ def main():
     ap.add_argument("--limit", type=int, help="score at most this many new versions (pilot runs)")
     ap.add_argument("--seed", type=int, default=260, help="seed for the random call order")
     ap.add_argument("--status", action="store_true", help="only print progress")
+    ap.add_argument("--run", default="test-full-v1", help="results subfolder for this prompt version")
     args = ap.parse_args()
 
     backend, model_id, effort = MODELS[args.model]
     backend, model_id = args.backend or backend, args.model_id or model_id
     OPTS.update(effort=args.effort or effort, threshold=args.threshold, proxy_url=args.proxy_url)
-    out_dir = os.path.join(RESULTS, args.model)
+    out_dir = os.path.join(RESULTS, args.run, args.model)
     os.makedirs(out_dir, exist_ok=True)
     scores_path, errors_path = os.path.join(out_dir, "scores.jsonl"), os.path.join(out_dir, "errors.jsonl")
 
@@ -257,7 +258,7 @@ def main():
     versions = load_versions()
     done = done_ids(scores_path)
     todo = [v for v in versions if v["version_id"] not in done]
-    print(f"{args.model}: {len(done)}/{len(versions)} done, {len(todo)} left", flush=True)
+    print(f"{args.run}/{args.model}: {len(done)}/{len(versions)} done, {len(todo)} left", flush=True)
     if args.status or not todo:
         return
 

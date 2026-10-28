@@ -1,6 +1,6 @@
 .DS_Store
 
 # fake scores from `call_llm.py --model mock`
-test/results/mock/
+test/results/*/mock/
 __pycache__/
 test/logs/
