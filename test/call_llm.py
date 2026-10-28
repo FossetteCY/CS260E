@@ -74,7 +74,7 @@ def run_codex(model_id, prompt, cwd):
 
 
 def run_api(model_id, prompt, cwd):
-    body = json.dumps({"model": model_id, "max_tokens": 400, "system": SYSTEM,
+    body = json.dumps({"model": model_id, "max_tokens": 600, "system": SYSTEM,
                        "messages": [{"role": "user", "content": prompt}]}).encode()
     req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, headers={
         "x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01",
@@ -88,7 +88,8 @@ def run_mock(model_id, prompt, cwd):
     rng = random.Random(prompt)
     t, p, c = rng.randint(5, 8), rng.randint(5, 8), rng.randint(5, 8)
     return json.dumps({"technical": t, "potential": p, "communication": c, "total": t + p + c,
-                       "interview": "yes" if t + p + c >= 18 else "no", "rationale": "mock"}), "mock"
+                       "interview": "yes" if t + p + c >= 18 else "no", "technical_note": "mock",
+                       "potential_note": "mock", "communication_note": "mock", "rationale": "mock"}), "mock"
 
 
 BACKENDS = {"claude": run_claude, "codex": run_codex, "api": run_api, "mock": run_mock}
@@ -104,7 +105,8 @@ def parse(text):
     out["model_total"] = s.get("total")
     out["interview"] = str(s["interview"]).strip().lower()
     assert out["interview"] in ("yes", "no"), f"bad interview value: {s['interview']}"
-    out["rationale"] = s.get("rationale", "")
+    for k in ("technical_note", "potential_note", "communication_note", "rationale"):
+        out[k] = s.get(k, "")
     return out
 
 

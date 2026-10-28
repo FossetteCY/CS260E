@@ -27,4 +27,7 @@ Return ONLY a JSON object, no other text, with these fields:
 - "communication": integer 1-10
 - "total": integer, the sum of the three scores above
 - "interview": "yes" or "no", whether you recommend an interview
-- "rationale": one sentence, at most 30 words
+- "technical_note": a short phrase explaining the technical score, at most 15 words
+- "potential_note": a short phrase explaining the potential score, at most 15 words
+- "communication_note": a short phrase explaining the communication score, at most 15 words
+- "rationale": one sentence explaining the overall decision, at most 30 words
