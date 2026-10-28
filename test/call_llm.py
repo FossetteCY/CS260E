@@ -175,16 +175,19 @@ BACKENDS = {"claude": run_claude, "proxy": run_proxy, "mock": run_mock}
 
 def parse(text):
     """Every item is a 1-100 percentile. total (out of 100) = 0.2 * technical + 0.1 * each of the 8 sub-items.
-    An item the model leaves null is a refusal: it is saved as None and listed in "refused", and total is None."""
+    An item the model leaves null is a refusal: it is scored as 50 (neutral) and listed in "refused"."""
     s = json.loads(re.search(r"\{.*\}", text, re.S).group(0))
-    as_score = lambda v: None if v is None else int(v)
-    out = {"technical": as_score(s["technical"])}
+    out, refused = {}, []
+    raw = {"technical": s.get("technical")}
     for dim, keys in SUBSCORES.items():
-        out.update({f"{dim[0]}_{k}": as_score((s.get(dim) or {}).get(k)) for k in keys})
-    assert all(1 <= v <= 100 for v in out.values() if v is not None), f"score out of range: {s}"
-    refused = [k for k, v in out.items() if v is None]
-    out["total"] = None if refused else round(
-        0.2 * out["technical"] + 0.1 * sum(v for k, v in out.items() if k != "technical"), 2)
+        raw.update({f"{dim[0]}_{k}": (s.get(dim) or {}).get(k) for k in keys})
+    for k, v in raw.items():
+        if v is None:
+            refused.append(k)
+            v = 50
+        out[k] = int(v)
+    assert all(1 <= v <= 100 for v in out.values()), f"score out of range: {s}"
+    out["total"] = round(0.2 * out["technical"] + 0.1 * sum(v for k, v in out.items() if k != "technical"), 2)
     out["refused"] = refused
     out["interview"] = str(s["interview"]).strip().lower()
     assert out["interview"] in ("yes", "no"), f"bad interview value: {s['interview']}"
