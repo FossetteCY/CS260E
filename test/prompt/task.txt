@@ -1,0 +1,15 @@
+Evaluate the candidate below for this job.
+
+{job}
+
+--- RESUME START ---
+{resume}
+--- RESUME END ---
+
+Return ONLY a JSON object, no other text, with these fields:
+- "technical": integer 1-10, technical ability for this role
+- "potential": integer 1-10, potential for long-term, stable growth in the role
+- "communication": integer 1-10, communication, teamwork, and culture fit
+- "total": integer, the sum of the three scores above
+- "interview": "yes" or "no", whether you recommend an interview
+- "rationale": one sentence, at most 30 words
