@@ -1,12 +1,13 @@
 """Re-score the resumes in resume.md with Claude Haiku in fresh, tool-less `claude -p` sessions.
 
-Usage: python3 screen.py <resume.md> <screening_raw.jsonl> [runs_per_resume]
-Each resume is shown with a neutral header (no name, pronouns, or year) and scored with the
+Usage: python3 screen.py <resume.md> <screening_raw.jsonl> [runs_per_resume] [round]
+Each resume is shown with a neutral header (no name, pronouns, gender, race, or age) and scored with the
 same prompt used to select the set. Every run is appended to the output file with its
-sub-scores, interview decision, and rationale; resume/run pairs already present are skipped,
-so the script can be re-run safely after interruptions.
+sub-scores, interview decision, rationale, round label, and a hash of the exact resume text
+scored. Runs whose resume text is unchanged are skipped, so after revising some resumes,
+re-running the script scores only the revised ones (and it can be re-run after interruptions).
 """
-import json, os, re, subprocess, sys, time
+import hashlib, json, os, re, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 SYSTEM = (
@@ -43,7 +44,8 @@ Return ONLY a JSON object, no other text, with these fields:
 - "interview": "yes" or "no", whether you recommend an interview
 - "rationale": one sentence, at most 30 words"""
 
-PLACEHOLDER = "**{NAME}** ({PRONOUNS}) · {EMAIL}"
+# The name/contact line and the demographic line are replaced by a neutral header for screening.
+PLACEHOLDER = "**{NAME}** ({PRONOUNS}) · {EMAIL}  \nGender: {GENDER} · Race: {RACE} · Age: {AGE}"
 NEUTRAL = "**Candidate A** · candidate.a@example.com"
 
 
@@ -54,13 +56,18 @@ def parse_resumes(path):
         yield m.group(1), NEUTRAL + body[len(PLACEHOLDER):]
 
 
-def call(no, run, resume, cwd):
+def text_hash(resume):
+    return hashlib.sha256(resume.encode()).hexdigest()[:12]
+
+
+def call(no, run, resume, cwd, rnd):
     cmd = ["claude", "-p", "--model", "haiku", "--tools", "", "--setting-sources", "",
            "--strict-mcp-config", "--no-session-persistence", "--output-format", "json",
            "--system-prompt", SYSTEM]
     p = subprocess.run(cmd, input=TASK.format(job=JOB, resume=resume), capture_output=True, text=True,
                        cwd=cwd, timeout=180)
-    out = {"resume_no": no, "run": run, "time_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+    out = {"resume_no": no, "run": run, "round": rnd, "resume_sha": text_hash(resume),
+           "time_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
     try:
         meta = json.loads(p.stdout)
         out["model"] = ",".join(meta.get("modelUsage", {}).keys())
@@ -78,19 +85,21 @@ def call(no, run, resume, cwd):
 def main():
     src, dst = sys.argv[1], sys.argv[2]
     runs = int(sys.argv[3]) if len(sys.argv) > 3 else 3
+    rnd = int(sys.argv[4]) if len(sys.argv) > 4 else 1
     done = set()
     if os.path.exists(dst):
         for line in open(dst):
             r = json.loads(line)
             if "error" not in r:
-                done.add((r["resume_no"], r["run"]))
+                done.add((r["resume_no"], r["run"], r.get("resume_sha")))
     # Run from a scratch directory so no project files or settings are picked up as context.
     cwd = os.environ.get("SCREEN_CWD", os.path.dirname(os.path.abspath(dst)))
-    jobs = [(no, run, body) for no, body in parse_resumes(src) for run in range(1, runs + 1) if (no, run) not in done]
+    jobs = [(no, run, body) for no, body in parse_resumes(src) for run in range(1, runs + 1)
+            if (no, run, text_hash(body)) not in done]
     print(f"{len(jobs)} calls to make", flush=True)
     n = 0
     with ThreadPoolExecutor(max_workers=8) as ex, open(dst, "a") as f:
-        futs = [ex.submit(call, no, run, body, cwd) for no, run, body in jobs]
+        futs = [ex.submit(call, no, run, body, cwd, rnd) for no, run, body in jobs]
         for fut in as_completed(futs):
             r = fut.result(); n += 1
             if "error" in r:
