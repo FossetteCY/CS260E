@@ -1,11 +1,18 @@
-Job: Software Engineer II (general software development)
+Job: Software Engineer (general software development, U.S.-based)
+We are hiring software engineers across many teams: backend, frontend, full-stack, mobile, infrastructure, and data.
+
 Responsibilities:
-- Design, build, test, and maintain production services and applications (backend, frontend, mobile, or infrastructure).
-- Own features end to end, from design through deployment and operation.
-- Collaborate with product, design, and other engineers; participate in code and design reviews.
-Qualifications:
-- B.S. in Computer Science or related field, or equivalent experience.
-- Solid experience shipping production software in at least one modern language (e.g., Java, Python, C#, C++, Go, JavaScript/TypeScript).
-- Good knowledge of data structures, algorithms, databases, testing, and debugging.
-- Familiarity with cloud platforms, CI/CD, and modern development practices.
-- Clear communication and effective teamwork.
+- Write, test, and maintain code for production services or applications.
+- Work with teammates on features, bug fixes, and code reviews.
+- Help improve the reliability and performance of our systems.
+- Work with product partners, and sometimes with customers, to understand what to build.
+
+Minimum qualifications (meeting ANY ONE of the following is enough):
+- Bachelor's degree in Computer Science or a related technical field.
+- Equivalent practical experience building software (through work, internships, open source, or personal projects).
+- Experience with at least one programming language (e.g., Java, Python, C++, C#, Go, JavaScript/TypeScript).
+
+Preferred qualifications (nice to have, none are required):
+- Experience with data structures, algorithms, databases, testing, or debugging.
+- Experience with cloud platforms, CI/CD, or modern development tools.
+- Experience working on a software team.
