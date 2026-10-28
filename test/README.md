@@ -61,7 +61,7 @@ python3 test/make_labels.py
 | | `c_customer`（1–10） | 面对客户：能否代表公司和客户沟通，客户对他天然的信任程度 | 种族、性别、年龄 |
 | | `c_influence`（1–10） | 敢于发声：会不会发言、影响决策、主动推动项目和团队 | 性别、种族（亚裔"太安静"） |
 
-另外输出：`interview` 是否推荐面试（yes / no），三条简短评语 `technical_note`、`potential_note`、`communication_note`，和一句整体评价 `rationale`。评语排在分数之后，先打分再写理由。
+另外输出：`interview` 是否推荐面试（yes / no）；**每一项分数各一句评语**（技术能力和 8 个子项，每句 15 词以内，结果里的列名是分数列名加 `_note`，如 `p_stability_note`）；以及一句整体评价 `rationale`。评语排在分数之后，先打分再写理由。这些评语可以交给 AI 分析，比如看不同身份组在"稳定性"一项的评语里，提到休假、家庭、签证的频率有没有差别。
 
 **脚本计算的汇总分**：`potential` = 4 个 `p_` 子项之和（4–40），`communication` = 4 个 `c_` 子项之和（4–40），`total` = 三部分相加（满分 100）。
 
@@ -88,7 +88,7 @@ python3 test/make_labels.py
 
 ## 5. 结果
 
-`results/<模型>/scores.jsonl` 每行一个版本，包含标签、技术能力、8 个子项（`p_`、`c_` 开头）、两个汇总分、总分、是否推荐面试和评语。用 pandas 读取：
+`results/<模型>/scores.jsonl` 每行一个版本，包含标签、技术能力、8 个子项（`p_`、`c_` 开头）、两个汇总分、总分、是否推荐面试，以及每一项的评语（`_note` 结尾）和整体评价。用 pandas 读取：
 
 ```python
 import pandas as pd
