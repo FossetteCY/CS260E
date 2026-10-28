@@ -104,7 +104,7 @@ python3 test/make_labels.py --show 042-nb-multi-35plus
 | `version_id`、`resume_no`、`combo_id` | 版本编号、简历编号、组合编号 |
 | `gender`、`race`、`age_group`、`name`、`age` | 这个版本的身份 |
 | `technical`、`p_*`、`c_*` | 9 项分数（百分位 1–100） |
-| `potential`、`communication`、`total` | 汇总分，由脚本计算 |
+| `total` | 总分（满分 100）= 0.2 × 技术能力 + 0.1 × 每个子项，由脚本计算 |
 | `interview` | 是否推荐面试 |
 | `*_note`、`rationale` | 每项评语和整体评价 |
 | `model`、`latency_s`、`time_utc` | 实际使用的模型、耗时、时间 |
