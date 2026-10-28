@@ -126,6 +126,7 @@ python3 test/make_labels.py --show 042-nb-multi-35plus
 | `gender`、`race`、`age_group`、`name`、`age` | 这个版本的身份 |
 | `technical`、`p_*`、`c_*` | 9 项分数（百分位 1–100） |
 | `total` | 总分（满分 100）= 0.2 × 技术能力 + 0.1 × 每个子项，由脚本计算 |
+| `refused` | 模型拒绝打分（返回 null）的项目列表；这些项存为空值，`total` 也为空，不算错误 |
 | `interview` | 是否推荐面试 |
 | `*_note`、`rationale` | 每项评语和整体评价 |
 | `model`、`latency_s`、`time_utc` | 实际使用的模型、耗时、时间 |

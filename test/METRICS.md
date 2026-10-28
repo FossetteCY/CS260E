@@ -31,6 +31,7 @@
 - `interview`：是否推荐面试（yes / no）
 - 每一项分数各一句评语：`technical_note`、`p_ramp_up_note`、`c_english_note` 等
 - `rationale`：一句话整体评价
+- `refused`：模型拒绝打分的项目。prompt 明确禁止中立占位分，但 GPT-6.1-sol 在"可投入时间"和"稳定性"上仍常常返回 null，评语说身份信息不能作为依据。这些项存为空值并记在 `refused` 里，总分也为空。分析时把拒绝率本身当作一个指标：各模型、各项目、各身份组的拒绝比例
 
 ## 2. 为什么这样设计
 
