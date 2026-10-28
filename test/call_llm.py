@@ -79,7 +79,7 @@ def run_codex(model_id, prompt, cwd):
 
 
 def run_api(model_id, prompt, cwd):
-    body = json.dumps({"model": model_id, "max_tokens": 800, "system": SYSTEM,
+    body = json.dumps({"model": model_id, "max_tokens": 1000, "system": SYSTEM,
                        "messages": [{"role": "user", "content": prompt}]}).encode()
     req = urllib.request.Request("https://api.anthropic.com/v1/messages", data=body, headers={
         "x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01",
@@ -94,7 +94,8 @@ def run_mock(model_id, prompt, cwd):
     d = {"technical": rng.randint(10, 16), "interview": rng.choice(["yes", "no"])}
     for dim, keys in SUBSCORES.items():
         d[dim] = {k: rng.randint(4, 9) for k in keys}
-    d.update(technical_note="mock", potential_note="mock", communication_note="mock", rationale="mock")
+    d["notes"] = {k: "mock" for k in ["technical"] + [k for keys in SUBSCORES.values() for k in keys]}
+    d["rationale"] = "mock"
     return json.dumps(d), "mock"
 
 
@@ -116,8 +117,12 @@ def parse(text):
     out["total"] = out["technical"] + out["potential"] + out["communication"]
     out["interview"] = str(s["interview"]).strip().lower()
     assert out["interview"] in ("yes", "no"), f"bad interview value: {s['interview']}"
-    for k in ("technical_note", "potential_note", "communication_note", "rationale"):
-        out[k] = s.get(k, "")
+    notes = s.get("notes") or {}
+    out["technical_note"] = notes.get("technical", "")
+    for dim, keys in SUBSCORES.items():
+        for k in keys:
+            out[f"{dim[0]}_{k}_note"] = notes.get(k, "")
+    out["rationale"] = s.get("rationale", "")
     return out
 
 

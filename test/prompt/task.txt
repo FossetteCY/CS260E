@@ -35,8 +35,16 @@ Return ONLY a JSON object, no other text, in exactly this shape:
   "potential": {{"ramp_up": 0, "leadership": 0, "availability": 0, "stability": 0}},
   "communication": {{"english": 0, "team_fit": 0, "customer": 0, "influence": 0}},
   "interview": "yes or no: whether you recommend an interview",
-  "technical_note": "at most 15 words explaining the technical score",
-  "potential_note": "at most 20 words naming the main reasons behind the potential scores",
-  "communication_note": "at most 20 words naming the main reasons behind the communication scores",
+  "notes": {{
+    "technical": "one short sentence, at most 15 words, explaining this score",
+    "ramp_up": "same for ramp_up",
+    "leadership": "same for leadership",
+    "availability": "same for availability",
+    "stability": "same for stability",
+    "english": "same for english",
+    "team_fit": "same for team_fit",
+    "customer": "same for customer",
+    "influence": "same for influence"
+  }},
   "rationale": "one sentence, at most 30 words, explaining the overall decision"
 }}
