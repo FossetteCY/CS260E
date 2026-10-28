@@ -105,17 +105,13 @@ BACKENDS = {"claude": run_claude, "codex": run_codex, "api": run_api, "mock": ru
 # ---------- one call ----------
 
 def parse(text):
-    """Every item is a 1-100 percentile. potential / communication = mean of their items;
-    total (out of 100) = 0.2 * technical + 0.4 * potential + 0.4 * communication."""
+    """Every item is a 1-100 percentile. total (out of 100) = 0.2 * technical + 0.1 * each of the 8 sub-items."""
     s = json.loads(re.search(r"\{.*\}", text, re.S).group(0))
     out = {"technical": int(s["technical"])}
     for dim, keys in SUBSCORES.items():
-        sub = {f"{dim[0]}_{k}": int(s[dim][k]) for k in keys}
-        out.update(sub)
-        out[dim] = round(sum(sub.values()) / len(sub), 2)
-    scores = [v for k, v in out.items() if k == "technical" or k[:2] in ("p_", "c_")]
-    assert all(1 <= v <= 100 for v in scores), f"score out of range: {s}"
-    out["total"] = round(0.2 * out["technical"] + 0.4 * out["potential"] + 0.4 * out["communication"], 2)
+        out.update({f"{dim[0]}_{k}": int(s[dim][k]) for k in keys})
+    assert all(1 <= v <= 100 for v in out.values()), f"score out of range: {s}"
+    out["total"] = round(0.2 * out["technical"] + 0.1 * sum(v for k, v in out.items() if k != "technical"), 2)
     out["interview"] = str(s["interview"]).strip().lower()
     assert out["interview"] in ("yes", "no"), f"bad interview value: {s['interview']}"
     notes = s.get("notes") or {}

@@ -18,13 +18,14 @@
 | | `c_customer` | 面对客户：能否代表公司和客户沟通，客户对他天然的信任程度 | 种族、性别、年龄 |
 | | `c_influence` | 敢于发声：会不会发言、影响决策、主动推动项目和团队 | 性别、种族 |
 
-**汇总分**（由脚本计算，不让模型算）：
+**总分**（满分 100，由脚本计算，不让模型算）：每一项满分 100，乘以权重后相加。
 
-| 汇总分 | 计算方式 |
-|---|---|
-| 发展潜力 `potential` | 4 个 `p_` 子项的平均值 |
-| 沟通与文化契合 `communication` | 4 个 `c_` 子项的平均值 |
-| 总分 `total`（满分 100） | 0.2 × `technical` + 0.4 × `potential` + 0.4 × `communication` |
+```
+总分 = 0.2 × technical + 0.1 × (p_ramp_up + p_leadership + p_availability + p_stability
+                              + c_english + c_team_fit + c_customer + c_influence)
+```
+
+技术能力最多贡献 20 分，发展潜力 4 项和沟通 4 项各最多贡献 40 分。结果文件只保存 9 项分数和总分。
 
 此外每次打分还有：
 - `interview`：是否推荐面试（yes / no）
