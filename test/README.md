@@ -12,7 +12,10 @@ test/
 │   ├── job.txt        岗位描述：通用软件工程师
 │   └── task.txt       打分要求和输出格式
 ├── call_llm.py        调用模型打分 → results/<模型>/scores.jsonl
-└── results/           gptsol601 / opus-5-5 / sonnet-5-5 / haiku-5-5
+├── codex_proxy.py     GPT 用：把 Codex app-server 包成本地接口，额度到 90% 自动等待
+├── run_gpt.sh         一键跑 GPT（先启动 codex_proxy.py）
+├── run_claude.sh      一键跑某个 Claude 模型
+└── results/           gpt-6.1-sol-high / opus-5-5-high / sonnet-5-5-high / haiku-5-5-high
 ```
 
 ## 1. 生成测试版本：`make_labels.py`
@@ -92,22 +95,25 @@ python3 test/make_labels.py --show 042-nb-multi-35plus
 
 ## 3. 调用模型：`call_llm.py`
 
-需要 Python 3.9 以上（不用装包），以及登录好的 Claude Code 或 Codex CLI。在仓库根目录运行：
+需要 Python 3.9 以上（不用装包），以及登录好的 Claude Code 或 ChatGPT 桌面版（自带 Codex）。在仓库根目录运行：
 
-| 模型 | 命令 | 走谁的额度 |
+| 模型 | 命令 | 调用方式 |
 |---|---|---|
-| Haiku 5.5 | `python3 test/call_llm.py --model haiku-5-5` | Claude Code（`claude -p`） |
-| Sonnet 5.5 | `python3 test/call_llm.py --model sonnet-5-5` | Claude Code（`claude -p`） |
-| Opus 5.5 | `python3 test/call_llm.py --model opus-5-5` | Claude Code（`claude -p`） |
-| gptsol601 | `python3 test/call_llm.py --model gptsol601` | Codex CLI（`codex exec`） |
+| Haiku 5.5（high） | `bash test/run_claude.sh haiku-5-5-high` | `claude -p --effort high` |
+| Sonnet 5.5（high） | `bash test/run_claude.sh sonnet-5-5-high` | `claude -p --effort high` |
+| Opus 5.5（high） | `bash test/run_claude.sh opus-5-5-high` | `claude -p --effort high` |
+| GPT-6.1-sol（high） | `bash test/run_gpt.sh` | `codex_proxy.py`（Codex app-server，和 CS269 项目同一套） |
 
+两个脚本都会反复调用 `call_llm.py`，直到 5,400 个版本全部打完（最多 5 轮，失败的版本下一轮重跑），并用 `caffeinate` 防止电脑睡眠。
+
+- **额度到 90% 自动暂停**：Claude 由 `call_llm.py` 从 `claude -p` 的返回里读取用量；GPT 由 `codex_proxy.py` 在每次调用前读取用量。到 90% 就等这个窗口刷新，刷新后自动继续。阈值可以用环境变量改，如 `THRESHOLD=80 bash test/run_gpt.sh`
 - **每次调用都是新会话**，不带工具，从空文件夹运行
 - **可以随时中断**：已打过分的版本会跳过，额度用完后再运行同一条命令就接着跑
 - **失败自动重试 3 次**，仍失败的记在 `errors.jsonl`，下次运行自动重跑
 - **调用顺序随机**（固定种子），默认 10 路并发，限流时用 `--workers 5` 调低
 - **查看进度**：加 `--status`；**只跑一部分**：加 `--limit 50`
-- **gptsol601**：Codex CLI 不同版本参数可能不同，报错时对照 `codex exec --help` 改 `call_llm.py` 里的 `run_codex`；模型 ID 不对就用 `--model-id <ID>` 指定
-- **`claude -p` 会附带运行者的账号邮箱**（见 `resume/resume_competitiveness.pdf` 第 7 节）。它对 54 个版本都一样，不会造成版本间差异；有 API key 的话也可以加 `--backend api` 改走 Anthropic API（需要 `ANTHROPIC_API_KEY`）
+- **日志**：在 `test/logs/`（代理的用量记录在 `codex_proxy.jsonl`），不会被提交
+- **`claude -p` 会附带运行者的账号邮箱**（见 `resume/resume_competitiveness.pdf` 第 7 节）。它对 54 个版本都一样，不会造成版本间差异
 - **不花额度测试流程**：`--model mock` 会生成随机分数，结果在 `results/mock/`，不会被提交
 
 ## 4. 结果：`results/<模型>/scores.jsonl`
@@ -144,13 +150,13 @@ python3 test/make_labels.py --show 042-nb-multi-35plus
 
 ```python
 import pandas as pd
-df = pd.read_json("test/results/opus-5-5/scores.jsonl", lines=True, dtype={"resume_no": str})
+df = pd.read_json("test/results/opus-5-5-high/scores.jsonl", lines=True, dtype={"resume_no": str})
 ```
 
 跑完把自己那个模型的文件夹提交上去（每人只改自己的文件夹，不会冲突）：
 
 ```bash
-git pull && git add test/results/opus-5-5 && git commit -m "Add opus-5-5 results" && git push
+git pull && git add test/results/opus-5-5-high && git commit -m "Add opus-5-5-high results" && git push
 ```
 
 ## 5. 分析

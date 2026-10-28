@@ -61,18 +61,19 @@ Prompt 在 `test/prompt/`，由三部分组成：
 
 ## 3. 怎么测
 
-需要 Python 3.9 以上（不用装包），以及登录好的 Claude Code 或 Codex CLI。在仓库根目录运行：
+需要 Python 3.9 以上（不用装包），以及登录好的 Claude Code 或 ChatGPT 桌面版（自带 Codex）。在仓库根目录运行：
 
 | 模型 | 命令 | 额度 |
 |---|---|---|
-| Haiku 5.5 | `python3 test/call_llm.py --model haiku-5-5` | Claude |
-| Sonnet 5.5 | `python3 test/call_llm.py --model sonnet-5-5` | Claude |
-| Opus 5.5 | `python3 test/call_llm.py --model opus-5-5` | Claude |
-| gptsol601 | `python3 test/call_llm.py --model gptsol601` | Codex |
+| Haiku 5.5（high） | `bash test/run_claude.sh haiku-5-5-high` | Claude |
+| Sonnet 5.5（high） | `bash test/run_claude.sh sonnet-5-5-high` | Claude |
+| Opus 5.5（high） | `bash test/run_claude.sh opus-5-5-high` | Claude |
+| GPT-6.1-sol（high） | `bash test/run_gpt.sh` | ChatGPT（通过 Codex app-server） |
 
 - 每个模型打 5,400 次，每次都是全新会话
-- 可以随时中断：额度用完后再运行同一条命令，会跳过已完成的版本接着跑
-- Haiku 实测每次约 12 秒，10 路并发跑完约 2 小时；其他模型更慢
+- **额度到 90% 自动暂停**：等这个 5 小时窗口刷新后自动继续，可以一直开着不管
+- 可以随时中断：再运行同一条命令，会跳过已完成的版本接着跑
+- Haiku 实测每次约 12 秒，10 路并发跑完约 2 小时（不算等额度的时间）；其他模型更慢
 - 结果写入 `test/results/<模型>/scores.jsonl`，每人跑完把自己模型的文件夹提交上来
 
 更多参数（`--status` 看进度、`--limit` 只跑一部分等）见 [`test/README.md`](test/README.md)。
