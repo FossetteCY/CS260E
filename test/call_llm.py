@@ -7,7 +7,7 @@ Usage:
 
 Models (results go to test/results/<run>/<model>/scores.jsonl, run defaults to test-full-v1):
     haiku-5-5-high, sonnet-5-5-high, opus-5-5-high   via `claude -p --effort high` (Claude subscription)
-    gpt-6.1-sol-high                                 via test/codex_proxy.py (Codex app-server, ChatGPT subscription)
+    gpt-6.1-sol-high / gpt-6.1-terra-high            via test/codex_proxy.py (Codex app-server, ChatGPT subscription)
     mock                                             random scores, no calls
 
 Quota: both subscriptions report how much of each rate-limit window is used. At --threshold %
@@ -34,6 +34,7 @@ MODELS = {
     "sonnet-5-5-high": ("claude", "claude-sonnet-5-5", "high"),
     "opus-5-5-high": ("claude", "claude-opus-5-5", "high"),
     "gpt-6.1-sol-high": ("proxy", "gpt-6.1-sol", "high"),
+    "gpt-6.1-terra-high": ("proxy", "gpt-6.1-terra", "high"),
     "mock": ("mock", "mock", None),
 }
 OPTS = {"effort": None, "threshold": 90.0, "proxy_url": "http://localhost:8200/v1"}
