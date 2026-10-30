@@ -244,6 +244,8 @@ def main():
     ap.add_argument("--proxy-url", default=OPTS["proxy_url"], help="codex_proxy.py address for GPT models")
     ap.add_argument("--workers", type=int, default=10, help="parallel calls (default 10)")
     ap.add_argument("--limit", type=int, help="score at most this many new versions (pilot runs)")
+    ap.add_argument("--resumes", help="only score these resumes, e.g. 71-100")
+    ap.add_argument("--reverse", action="store_true", help="go from the last resume to the first (random order within a resume)")
     ap.add_argument("--seed", type=int, default=260, help="seed for the random call order")
     ap.add_argument("--status", action="store_true", help="only print progress")
     ap.add_argument("--run", default="test-full-v1", help="results subfolder for this prompt version")
@@ -259,13 +261,18 @@ def main():
     if not os.path.exists(VERSIONS):
         sys.exit("test/data/versions.csv not found; run `python3 test/make_labels.py` first")
     versions = load_versions()
+    if args.resumes:
+        lo, hi = map(int, args.resumes.split("-"))
+        versions = [v for v in versions if lo <= int(v["resume_no"]) <= hi]
     done = done_ids(scores_path)
     todo = [v for v in versions if v["version_id"] not in done]
-    print(f"{args.run}/{args.model}: {len(done)}/{len(versions)} done, {len(todo)} left", flush=True)
+    print(f"{args.run}/{args.model}: {len(versions) - len(todo)}/{len(versions)} done, {len(todo)} left", flush=True)
     if args.status or not todo:
         return
 
     random.Random(args.seed).shuffle(todo)
+    if args.reverse:
+        todo.sort(key=lambda v: -int(v["resume_no"]))
     todo = todo[:args.limit] if args.limit else todo
     resumes = load_resumes()
     # Run from an empty folder so no project files or settings are picked up as context.

@@ -4,7 +4,7 @@
 # Re-running resumes; versions that failed are retried on the next pass.
 cd "$(dirname "$0")/.."
 PORT=${PORT:-8200}
-THRESHOLD=${THRESHOLD:-90}
+THRESHOLD=${THRESHOLD:-95}
 WORKERS=${WORKERS:-6}
 MODEL=gpt-6.1-sol-high
 mkdir -p test/logs
