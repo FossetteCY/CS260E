@@ -8,18 +8,8 @@ cd "$(dirname "$0")/.."
 MODEL=${1:-haiku-5-5-high}
 THRESHOLD=${THRESHOLD:-90}
 WORKERS=${WORKERS:-10}
-# Windows: python3 is often the Store stub and there is no caffeinate (call_llm.py keeps Windows awake itself)
-PY=python3; $PY -c "" 2>/dev/null || PY=python
-KEEP="caffeinate -i"; command -v caffeinate > /dev/null || KEEP=
 for pass in $(seq 1 5); do
-<<<<<<< Updated upstream
     caffeinate -i python3 test/call_llm.py --model "$MODEL" --workers "$WORKERS" --threshold "$THRESHOLD" "${@:2}"
     python3 test/call_llm.py --model "$MODEL" "${@:2}" --status | grep -q " 0 left" && break
 done
 python3 test/call_llm.py --model "$MODEL" "${@:2}" --status
-=======
-    $KEEP $PY test/call_llm.py --model "$MODEL" --workers "$WORKERS" --threshold "$THRESHOLD"
-    $PY test/call_llm.py --model "$MODEL" --status | grep -q " 0 left" && break
-done
-$PY test/call_llm.py --model "$MODEL" --status
->>>>>>> Stashed changes

@@ -7,3 +7,4 @@ test/logs/
 
 # per-model run lock from call_llm.py
 test/results/*/*/.lock
+test/results/*/*/.lock
