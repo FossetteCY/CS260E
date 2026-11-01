@@ -228,6 +228,29 @@ def score(row, body, backend, model_id, cwd, retries=3):
 
 # ---------- main ----------
 
+def lock_or_exit(path):
+    """One run per model folder: a second copy (e.g. a scheduled re-launch) would append duplicates."""
+    f = open(path, "a+")
+    try:
+        if os.name == "nt":
+            import msvcrt
+            f.seek(0)
+            msvcrt.locking(f.fileno(), msvcrt.LK_NBLCK, 1)
+        else:
+            import fcntl
+            fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        sys.exit(f"another run is already writing to {os.path.dirname(path)}; exiting")
+    return f  # keep the file open for the lifetime of the run
+
+
+def keep_awake():
+    """Windows has no caffeinate: ask the OS not to sleep while this process runs."""
+    if os.name == "nt":
+        import ctypes
+        ctypes.windll.kernel32.SetThreadExecutionState(0x80000000 | 0x00000001)  # ES_CONTINUOUS | ES_SYSTEM_REQUIRED
+
+
 def done_ids(path):
     if not os.path.exists(path):
         return set()
@@ -271,6 +294,10 @@ def main():
     if args.status or not todo:
         return
 
+    lock = lock_or_exit(os.path.join(out_dir, ".lock"))
+    keep_awake()
+    done = done_ids(scores_path)  # re-read under the lock
+    todo = [v for v in versions if v["version_id"] not in done]
     random.Random(args.seed).shuffle(todo)
     if args.reverse:
         todo.sort(key=lambda v: -int(v["resume_no"]))
