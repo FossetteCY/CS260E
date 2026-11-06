@@ -31,11 +31,18 @@ analysis/
 ├── results/             # Validated CSV and Markdown snapshot
 │   ├── *.csv            # Eight validated statistical tables
 │   └── ANALYSIS_SUMMARY.md # Automatically generated statistical summary
-└── output/              # Ignored local generated outputs
+├── visualization/       # Maintained plotting module and reproduction guide
+│   ├── plot.py
+│   ├── README.md
+│   ├── requirements.txt
+│   └── figures/          # Four reviewed PDF/PNG snapshots
+└── output/              # Ignored local statistical outputs and figures
 ```
 
 The existing SVG files in `output/` are retained locally and ignored.
-They are not part of the validated snapshot. The script no longer generates figures.
+They are not part of the validated snapshot. `analyze_results.py` generates only
+statistical tables and the automated summary. Figures are generated separately by
+[visualization/plot.py](visualization/plot.py).
 
 ## Quick Start
 
@@ -55,6 +62,24 @@ per model and the statistical calculations, then compare all eight CSVs and the
 summary against the existing snapshot. Investigate unexpected changes before copying.
 A successful process exit alone does not certify completeness: the existing script
 reports invalid or duplicate rows in its quality table rather than failing on them.
+
+## Visualization
+
+The [visualization module](visualization/README.md) reads validated summaries from
+`results/` to produce demographic total-score deviations with existing 95% CIs and
+technical-score stability comparisons. It does not alter or recompute the statistical
+results. Automatic PDF/SVG/PNG exports remain local in `output/figures/`; reviewed
+PDF and 300-DPI PNG copies of the two figures are tracked in `visualization/figures/`.
+
+Use an environment with Matplotlib installed:
+
+```bash
+python3 analysis/visualization/plot.py --results-dir analysis/results --out-dir analysis/output/figures
+```
+
+The statistical analysis command above still requires only the standard library.
+Plotting dependencies and the locally verified interpreter are documented in the
+visualization README.
 
 ## Methodology
 
@@ -155,7 +180,8 @@ variance is available as the square of `sd_across_resumes`.
 
 Update this validation record when the dataset, code, or validation changes.
 Follow the comparison and review procedure under Quick Start before replacing
-validated results. Visualization and final interpretation remain separate work.
+validated results. The two initial visualization functions are implemented separately
+from statistical analysis; final interpretation remains pending.
 
 ## Limitations
 
@@ -174,8 +200,10 @@ validated results. Visualization and final interpretation remain separate work.
 
 ## Next Steps
 
-Prepare visualizations and conduct human qualitative review and final interpretation
-separately. No plotting scripts, figures, or paper prose are included in this snapshot.
+Review the two initial figures in the ACL manuscript layout. Future subscore
+heatmaps, intersectional comparisons, rationale visualizations, human qualitative
+review, and final interpretation remain pending. Extend the maintained plotting
+module for future figures; keep generated graphics outside the validated results snapshot.
 
 ## Maintenance / Changelog
 
@@ -187,3 +215,8 @@ separately. No plotting scripts, figures, or paper prose are included in this sn
   retained `results/ANALYSIS_SUMMARY.md` as a separate automatically generated file.
 - **2026-11-05:** removed the local archives `analysis/output.zip` and
   `test/results/test-full-v1.zip`; the extracted data and statistical outputs remain available.
+- **2026-11-06:** added the separate Matplotlib visualization module for demographic
+  deviations and technical stability, with CSV validation and fixed-size PDF/SVG/PNG
+  exports. Statistical code and validated result files remain unchanged.
+- **2026-11-06:** added four reviewed PDF/PNG figure snapshots under
+  `visualization/figures/`; automatic exports and quality-check previews remain ignored.
