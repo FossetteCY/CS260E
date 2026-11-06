@@ -1,0 +1,6 @@
+model,expected_versions,raw_score_rows,valid_unique_scores,missing_expected_versions,unexpected_version_ids,invalid_or_duplicate_rows,invalid_row_details,historical_error_rows,historical_error_version_ids,distinct_base_resumes,resumes_with_all_54_versions
+haiku-5-5-high,5400,5400,5400,0,0,0,{},0,0,100,100
+sonnet-5-5-high,5400,5400,5400,0,0,0,{},0,0,100,100
+opus-5-5-high,5400,5400,5400,0,0,0,{},0,0,100,100
+gpt-6.1-sol-high,5400,5400,5400,0,0,0,{},0,0,100,100
+gpt-6.1-terra-high,5400,5400,5400,0,0,0,{},73,71,100,100
