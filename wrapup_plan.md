@@ -79,13 +79,15 @@
 
 ### 交付（11/16 中午前）
 
-交一张表，示例如下。表里数字来自全量数据，最终以设计集算出的为准：
+正式交付为 [`analysis/results/bias_audit/BIAS_AUDIT.md`](analysis/results/bias_audit/BIAS_AUDIT.md)，仅使用 Development Set。报告包括共享与模型特定模式、统计证据、配对示例，以及待测试的 prompt 缓解方向；不使用旧全量数据示例来选择补丁。
 
-| 标签 | 指标 | 哪些模型 | 偏差 | 类型 | 原因 | prompt 补丁建议 |
-|---|---|---|---|---|---|---|
-| 亚裔 | 英语 | Opus、Sol、Terra | 约 −2 到 −3 | 特定 | 根据名字推测不是母语者 | 英语只按简历的书面表达打分，不得根据姓名推测母语 |
-| 23 岁 / 42 岁 | 上手速度 | 全部 | 约 ±2 到 ±4 | 通用 | 年龄刻板印象 | 只看学习新技术的证据，不得根据年龄推测 |
-| 男性 | 总分、技术分 | 全部 | 约 −0.5 到 −1.3 | 通用 | 待分析 | 待定 |
+支持文件：
+
+- [`group_offsets.csv`](analysis/results/bias_audit/group_offsets.csv)：全部模型、人口组及指标的偏差与置信区间。
+- [`bias_candidates.csv`](analysis/results/bias_audit/bias_candidates.csv)：达到探索性筛选条件的候选模式。
+- [`matched_pairs.csv`](analysis/results/bias_audit/matched_pairs.csv)：设计集内的配对分数、身份、原始评语及理由。
+
+运行：`python3 analysis/bias_audit.py --repo .`。筛选条件和置信区间仅支持探索性调查，不证明歧视或内部原因；具体优先级及建议以这份设计集审计报告为准。
 
 ---
 
