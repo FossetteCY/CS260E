@@ -174,6 +174,25 @@ dataset. Existing analysis scripts and committed results still describe all 100
 resumes: this task adds the split only, and does not silently filter or rerun analysis.
 Follow [`wrapup_plan.md`](../wrapup_plan.md) for the separate roles of Parts 1–3.
 
+## Development-Only Bias Audit
+
+[`bias_audit.py`](bias_audit.py) uses only the 50 resumes marked `development` in
+`resume_split.csv` (2,700 evaluations per model). It reuses the existing offset/CI
+helpers and generates a research handoff without modifying prompts or model results.
+
+```bash
+python3 analysis/bias_audit.py --repo .
+```
+
+Outputs are maintained in `analysis/results/bias_audit/`:
+[BIAS_AUDIT.md](results/bias_audit/BIAS_AUDIT.md) is the primary handoff;
+[group_offsets.csv](results/bias_audit/group_offsets.csv) contains all 600 group estimates;
+[bias_candidates.csv](results/bias_audit/bias_candidates.csv) retains exploratory screened patterns;
+[matched_pairs.csv](results/bias_audit/matched_pairs.csv) preserves Development-only examples.
+The report distinguishes explicit refusals from unflagged scores of 50, discloses
+missing source text, and suggests mitigation directions without implementing prompts.
+Evaluation results must not be used for this audit or prompt-development decisions.
+
 ## Visualization
 
 The [visualization module](visualization/README.md) reads validated summaries from
