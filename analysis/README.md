@@ -26,6 +26,9 @@ not evidence of refusal. Original inputs are not modified.
 ```text
 analysis/
 ├── analyze_results.py   # Statistical analysis; no plotting dependencies
+├── generate_resume_split.py # Deterministic metadata-only split generator
+├── verify_resume_split.py   # Independent split and regeneration checks
+├── resume_split.csv         # Canonical base-resume assignments
 ├── README.md            # Method and reproduction instructions
 ├── .gitignore           # Local outputs, caches, archives, logs
 ├── results/             # Validated CSV and Markdown snapshot
@@ -62,6 +65,114 @@ per model and the statistical calculations, then compare all eight CSVs and the
 summary against the existing snapshot. Investigate unexpected changes before copying.
 A successful process exit alone does not certify completeness: the existing script
 reports invalid or duplicate rows in its quality table rather than failing on them.
+
+## Reproducible Resume Split
+
+The canonical assignment for Parts 1–3 is [`resume_split.csv`](resume_split.csv):
+50 `development` and 50 `evaluation` base resumes. All 54 demographic variants of a
+resume inherit its assignment by `resume_no`; no version-level split file is created.
+This is a train-free experimental partition, not model training data.
+
+Development (Part 1) supports bias discovery, model-behavior investigation, prompt
+patch proposals, and all prompt-development pilot tests. Evaluation (Parts 2 and 3)
+is reserved for final testing of fixed prompt changes and checking their effects;
+it must not be used repeatedly to tune or select patches.
+
+### Inputs and ID Correspondence
+
+`resume/resume_scores_final.csv` identifies the finalized 100 resumes. Join each
+`resume_no` to the unique `selected == yes` row in `resume/resume_screening.csv`;
+check the candidate `cid` and specialty agree. Screening contains 103 rows, including
+three rejected historical candidates with blank resume IDs; those rows are excluded.
+The selected source field contains `dataset#record`; only the prefix before the first
+`#` defines the original dataset stratum. No quality scores, model scores, or
+bias outcomes influence split selection. Only IDs, selection flags, source, and
+specialty metadata are used; the final-table specialty is a consistency check.
+
+IDs are three-digit strings, currently `001`–`100`. They match `## Resume NNN`
+headings in `resume/resume.md` and `resume_no` in `test/data/versions.csv`.
+The screening `cid` identifies the original candidate and need not equal the final
+resume number after historical candidate replacements.
+
+### Exact Algorithm and Reproducibility
+
+[`generate_resume_split.py`](generate_resume_split.py) uses standard-library Python:
+
+1. Validate the 100 finalized IDs and the one-to-one selected metadata join.
+2. For each source of size `n`, allocate `floor(50*n/100)` Development positions.
+   Give remaining positions to descending integer remainders `(50*n) % 100`;
+   break ties by larger source size, then ascending source name. Evaluation gets
+   the remainder. Here, the 29-record source wins the half-position tie over the
+   singleton source, producing the quotas below.
+3. Initialize `random.Random(42)` once. Sort sources lexicographically and each
+   source's IDs lexicographically. For each of exactly **20,000** candidates, call
+   `rng.sample(sorted_source_ids, source_quota)` for every source, in sorted order.
+   Their union is Development; the complement is Evaluation. Do not stop early.
+4. For every specialty `s`, compute `abs(Development_s - Evaluation_s)`. Minimize
+   `(maximum specialty difference, sum of specialty differences)` lexicographically.
+   Keep the **earliest** candidate on equal objectives; no score-based tie-breaks.
+5. Write only `resume_no,split`, sorted by ID, as UTF-8 with LF newlines. Labels are
+   lowercase `development` and `evaluation`. There is no timestamp in the CSV.
+
+The earliest best candidate is **168** (one-based), with objective **(1, 2)**.
+Two specialties have odd totals, so a maximum difference of one and summed difference
+of two are unavoidable. The generated candidate attains that parity lower bound
+while satisfying source quotas; no feasibility relaxation or manual adjustment was needed.
+
+Reproduction depends on CPython's seeded `random.Random.sample` implementation;
+use the same Python implementation/version for archival regeneration. The initial
+reference run used CPython 3.9.6; CPython 3.13.5 was also checked and produced identical
+bytes. Fixed ordering avoids dependence on hash/set iteration.
+The official CSV, rather than a newly selected partition, is the downstream source
+of truth. Once reviewed, do not change the split, seed, objective, or candidate count
+in response to bias-analysis results.
+
+Run from the repository root (no packages required):
+
+```bash
+python3 analysis/generate_resume_split.py
+python3 analysis/verify_resume_split.py
+```
+
+Scripts also accept `--repo PATH`. The generator accepts `--out PATH` for scratch
+regeneration; the verifier accepts `--split PATH` for checking another copy. The
+verifier independently reads the metadata, computes source quotas, reports IDs and
+specialty differences, checks the existing 5,400-version manifest and resume headings,
+and runs the generator twice into a temporary directory to compare exact bytes.
+It exits nonzero on required validation failures. It does not modify the official CSV.
+
+### Verified Source Distribution
+
+| Original source | Total | Development | Evaluation |
+|---|---:|---:|---:|
+| cnamuangtoun/resume-job-description-fit | 44 | 22 | 22 |
+| Mehyaar/Annotated_NER_PDF_Resumes | 29 | 15 | 14 |
+| datasetmaster/resumes | 16 | 8 | 8 |
+| 0xnbk/resume-ats-score-v1-en | 10 | 5 | 5 |
+| opensporks/resumes | 1 | 0 | 1 |
+| **Total** | **100** | **50** | **50** |
+
+### Verified Specialty Distribution
+
+| Specialty | Total | Development | Evaluation | Absolute difference |
+|---|---:|---:|---:|---:|
+| Backend | 43 | 22 | 21 | 1 |
+| Data Engineering | 2 | 1 | 1 | 0 |
+| Frontend | 6 | 3 | 3 | 0 |
+| Full-stack | 32 | 16 | 16 | 0 |
+| Infrastructure | 9 | 4 | 5 | 1 |
+| Mobile | 8 | 4 | 4 | 0 |
+| **Total** | **100** | **50** | **50** | **2** |
+
+On 2026-11-14, verification passed: all 100 IDs are unique and covered; both groups
+contain 50 resumes and 2,700 demographic variants; source quotas match; specialty
+balance is parity-optimal; repeated generation is byte-identical.
+
+**Holdout limitation:** all 100 resumes were included in preliminary analyses.
+Evaluation is held out from subsequent prompt development, not a completely untouched
+dataset. Existing analysis scripts and committed results still describe all 100
+resumes: this task adds the split only, and does not silently filter or rerun analysis.
+Follow [`wrapup_plan.md`](../wrapup_plan.md) for the separate roles of Parts 1–3.
 
 ## Visualization
 
@@ -220,3 +331,6 @@ module for future figures; keep generated graphics outside the validated results
   exports. Statistical code and validated result files remain unchanged.
 - **2026-11-06:** added four reviewed PDF/PNG figure snapshots under
   `visualization/figures/`; automatic exports and quality-check previews remain ignored.
+- **2026-11-14:** added the metadata-only reproducible 50/50 resume split and
+  independent validator; documented source quotas, specialty balance, and holdout
+  limitations. Existing scoring, analysis, and visualization outputs are unchanged.
