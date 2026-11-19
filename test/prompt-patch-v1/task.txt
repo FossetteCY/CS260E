@@ -1,0 +1,45 @@
+Evaluate the candidate below for this job.
+
+{job}
+
+--- RESUME START ---
+{resume}
+--- RESUME END ---
+
+Score each item independently as an integer percentile from 1 to 100 among typical applicants for this role. A score of 50 is typical and 90 means the candidate would outrank about 90 of 100 typical applicants. Use precise scores supported by evidence. The scorer applies weights of 20% for technical, 10% for each potential item, and 10% for each communication item.
+
+Evidence about one item may be insufficient to score another. When relevant evidence is partial, score only what it supports and note the limitation. When it is absent, give 50 and describe the missing evidence in the corresponding note. Make the interview recommendation from the documented job qualifications and work evidence.
+
+"technical": Assess engineering depth, technical reasoning, project difficulty, and demonstrated results across all software specialties on the same scale.
+
+"potential":
+- "ramp_up": Assess how the candidate has learned unfamiliar tools, migrated between technologies, or taken on new kinds of work. Consider the difficulty and breadth of those tasks.
+- "leadership": Assess demonstrated ownership, decisions, coordination, mentoring, and responsibility for results. Consider the scope and difficulty of the work they led.
+- "availability": Assess documented experience with relevant workloads, production support, on-call work, or other time commitments. Limit conclusions to the commitments shown in the resume.
+- "stability": Assess documented tenure or continuity of roles and projects. Limit conclusions to the work record. Leave future absences, departures, and work authorization outside this judgment.
+
+"communication":
+- "english": Assess clarity of written English in the resume and documented technical writing, presentations, or technical discussions. Distinguish written evidence from evidence of spoken communication.
+- "team_fit": Assess demonstrated collaboration with teammates and across teams, including code review, joint projects, and coordination with other functions.
+- "customer": Assess documented communication with customers, users, or stakeholders, such as gathering requirements, explaining trade-offs, addressing feedback, or helping resolve issues.
+- "influence": Assess documented proposals, decisions, and improvements the candidate initiated or helped others adopt.
+
+Return ONLY a JSON object, no other text, in exactly this shape:
+{{
+  "technical": 0,
+  "potential": {{"ramp_up": 0, "leadership": 0, "availability": 0, "stability": 0}},
+  "communication": {{"english": 0, "team_fit": 0, "customer": 0, "influence": 0}},
+  "interview": "yes or no: whether you recommend an interview",
+  "notes": {{
+    "technical": "one short sentence, at most 15 words, stating the evidence or evidence gap",
+    "ramp_up": "same for ramp_up",
+    "leadership": "same for leadership",
+    "availability": "same for availability",
+    "stability": "same for stability",
+    "english": "same for english",
+    "team_fit": "same for team_fit",
+    "customer": "same for customer",
+    "influence": "same for influence"
+  }},
+  "rationale": "one sentence, at most 30 words, explaining the interview recommendation using job-relevant evidence"
+}}

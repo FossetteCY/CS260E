@@ -49,8 +49,10 @@ CATALOG_TOOL_FIELDS = ('tool_mode', 'multi_agent_version', 'multi_agent_reasonin
 
 def no_tool_catalog(model, verbosity=None):
     """Codex's cached model catalog entry for `model` with its tool settings removed, written to logs/."""
-    cache = json.loads((CODEX_HOME / 'models_cache.json').read_text())
-    entry = dict(next(m for m in cache['models'] if m['slug'] == model))
+    cache = json.loads((CODEX_HOME / 'models_cache.json').read_text(encoding='utf-8'))
+    entry = next((m.copy() for m in cache['models'] if m['slug'] == model), None)
+    if entry is None:
+        raise ValueError(f'{model} is missing from the Codex model cache')
     for field in CATALOG_TOOL_FIELDS:
         entry.pop(field, None)
     entry.update(experimental_supported_tools=[], supports_search_tool=False, shell_type='disabled',
@@ -59,21 +61,21 @@ def no_tool_catalog(model, verbosity=None):
         entry['default_verbosity'] = verbosity
     path = ROOT / 'logs' / f'codex_catalog_{model}_notools{"_" + verbosity if verbosity else ""}.json'
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps({'models': [entry]}))
+    path.write_text(json.dumps({'models': [entry]}), encoding='utf-8')
     return path
 
 
 def mcp_servers_off():
     """-c overrides switching off every MCP server in the user's Codex config (an empty table would merge)."""
     config = CODEX_HOME / 'config.toml'
-    names = re.findall(r'^\[mcp_servers\.([^.\]]+)\]', config.read_text(), re.M) if config.exists() else []
+    names = re.findall(r'^\[mcp_servers\.([^.\]]+)\]', config.read_text(encoding='utf-8'), re.M) if config.exists() else []
     return [f'mcp_servers.{name}.enabled=false' for name in names]
 ALLOWED_ITEMS = {'userMessage', 'agentMessage', 'reasoning'}
 
 
 def log(**row):
     LOG.parent.mkdir(parents=True, exist_ok=True)
-    with LOG.open('a') as f:
+    with LOG.open('a', encoding='utf-8') as f:
         f.write(json.dumps({'time': time.strftime('%Y-%m-%dT%H:%M:%S'), **row}, ensure_ascii=False) + '\n')
 
 
@@ -84,13 +86,15 @@ class AppServer:
         command = [CODEX, 'app-server']
         for feature in DISABLED_FEATURES:
             command += ['--disable', feature]
-        overrides = CONFIG + mcp_servers_off() + [f'model_catalog_json="{no_tool_catalog(model, verbosity)}"']
+        catalog_path = json.dumps(no_tool_catalog(model, verbosity).as_posix())
+        overrides = CONFIG + mcp_servers_off() + [f'model_catalog_json={catalog_path}']
         if verbosity:
             overrides.append(f'model_verbosity="{verbosity}"')
         for override in overrides:
             command += ['-c', override]
         self.proc = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                                     stderr=open(LOG.with_suffix('.stderr.log'), 'a'), text=True, bufsize=1)
+                                     stderr=LOG.with_suffix('.stderr.log').open('a', encoding='utf-8'),
+                                     encoding='utf-8', bufsize=1)
         self.ids = itertools.count(1)
         self.lock = threading.Lock()
         self.replies = {}

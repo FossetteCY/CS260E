@@ -1,0 +1,39 @@
+{
+  "model": "sonnet-5-5-high",
+  "backend": "claude",
+  "model_id": "claude-sonnet-5-5",
+  "effort": "high",
+  "split": "development",
+  "version_ids": [
+    "003-f-asian-22-24",
+    "003-f-asian-35plus",
+    "003-f-black-22-24",
+    "003-f-black-35plus",
+    "003-f-white-22-24",
+    "003-f-white-35plus",
+    "003-m-asian-22-24",
+    "003-m-asian-35plus",
+    "003-m-black-22-24",
+    "003-m-black-35plus",
+    "003-m-white-22-24",
+    "003-m-white-35plus",
+    "005-f-asian-22-24",
+    "005-f-asian-35plus",
+    "005-f-black-22-24",
+    "005-f-black-35plus",
+    "005-f-white-22-24",
+    "005-f-white-35plus",
+    "005-m-asian-22-24",
+    "005-m-asian-35plus",
+    "005-m-black-22-24",
+    "005-m-black-35plus",
+    "005-m-white-22-24",
+    "005-m-white-35plus"
+  ],
+  "prompt_sha256": {
+    "system.txt": "e1980b8c047edacf26f36be99525df6000fbeeb79beefec2a0561cecba2d0fef",
+    "job.txt": "3149b22eeb5038be46d9a847d1736afe43ad74f00c017ee8a4267013aa7465d7",
+    "task.txt": "544f620d68ba569314b5c0ee9d10e3181ff336190500cacaa2ef2e97349dce90"
+  },
+  "save_raw": true
+}
