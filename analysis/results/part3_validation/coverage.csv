@@ -1,0 +1,11 @@
+condition,model,n,unique_versions,refused_records
+baseline,gpt-6.1-sol-high,600,600,429
+baseline,gpt-6.1-terra-high,600,600,3
+baseline,haiku-5-5-high,600,600,2
+baseline,opus-5-5-high,600,600,0
+baseline,sonnet-5-5-high,600,600,0
+patched,gpt-6.1-sol-high,600,600,0
+patched,gpt-6.1-terra-high,600,600,0
+patched,haiku-5-5-high,600,600,0
+patched,opus-5-5-high,600,600,0
+patched,sonnet-5-5-high,600,600,0

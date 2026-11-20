@@ -1,0 +1,13 @@
+model,condition,refusal_record_rate,unflagged_50_stability_rate,unflagged_50_availability_rate,technical_between_resume_sd,total_between_resume_sd,technical_resume_rank_spearman,total_resume_rank_spearman
+haiku-5-5-high,baseline,0.00333,0.13000,0.16833,3.97151,1.68816,0.83629,0.76159
+haiku-5-5-high,patched,0.00000,0.99500,0.11500,3.98386,1.73783,0.83629,0.76159
+sonnet-5-5-high,baseline,0.00000,0.01833,0.11000,4.13837,1.54710,0.91458,0.82433
+sonnet-5-5-high,patched,0.00000,0.99667,0.47333,3.93941,1.86307,0.91458,0.82433
+opus-5-5-high,baseline,0.00000,0.07667,0.13667,3.76338,1.79338,0.91497,0.84217
+opus-5-5-high,patched,0.00000,0.95167,0.19167,3.53241,1.32142,0.91497,0.84217
+gpt-6.1-sol-high,baseline,0.71500,0.28333,0.28333,4.29835,2.20448,0.94511,0.83495
+gpt-6.1-sol-high,patched,0.00000,0.97667,0.46833,2.93807,2.11360,0.94511,0.83495
+gpt-6.1-terra-high,baseline,0.00500,0.30500,0.31500,4.14375,1.84926,0.88218,0.74483
+gpt-6.1-terra-high,patched,0.00000,0.99500,0.57333,2.56714,2.04406,0.88218,0.74483
+max_of_five,baseline,0.08500,0.22333,0.23833,4.02955,1.68150,0.75896,0.77175
+max_of_five,patched,0.00000,0.98167,0.43667,2.54747,2.01124,0.75896,0.77175

@@ -1,0 +1,2 @@
+contrast,metric,baseline_max_gap,baseline_max_ci_low,baseline_max_ci_high,patched_max_gap,patched_max_ci_low,patched_max_ci_high,max_change,max_change_ci_low,max_change_ci_high,max_absolute_gap_reduction
+gender_total,total,-0.83033,-1.05810,-0.60257,-0.26167,-0.40512,-0.11822,0.56867,0.28187,0.85546,0.56867

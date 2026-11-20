@@ -1,0 +1,6 @@
+contrast,metric,worst_patched_model,baseline_same_model_gap,patched_worst_model_gap,delta,delta_ci_low,delta_ci_high,patched_ci_low,patched_ci_high
+age_ramp,p_ramp_up,haiku-5-5-high,3.64000,1.41667,-2.22333,-2.98814,-1.45852,0.97499,1.85834
+asian_white_english,c_english,haiku-5-5-high,-0.16500,-0.74500,-0.58000,-1.76336,0.60336,-1.34932,-0.14068
+asian_black_english,c_english,haiku-5-5-high,-1.10000,-0.84500,0.25500,-0.85543,1.36543,-1.29479,-0.39521
+gender_total,total,sonnet-5-5-high,-0.68733,-0.44133,0.24600,0.01093,0.48107,-0.59466,-0.28800
+age_stability,p_stability,gpt-6.1-sol-high,-0.01000,0.08333,0.09333,0.00819,0.17847,-0.00023,0.16689
